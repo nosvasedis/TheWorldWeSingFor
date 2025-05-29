@@ -210,8 +210,13 @@
         .magic-stage-animation {
             width: 100%;
             height: 200px; /* Fixed height for consistency */
-            background: linear-gradient(45deg, #007BFF, #2196F3, #4CAF50, #007BFF); /* Gradient from new palette */
-            background-size: 400% 400%; /* Larger background for animation */
+            /* Initial background for the glow, will be updated by JS */
+            background-image: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.4) 0%, transparent 50%),
+                              linear-gradient(45deg, #007BFF, #2196F3, #4CAF50, #007BFF);
+            background-size: 200px 200px, 400% 400%; /* Size of glow, size of gradient */
+            background-repeat: no-repeat, repeat;
+            background-position: var(--mouse-x, 50%) var(--mouse-y, 50%), 0% 50%;
+            transition: background-position 0.1s linear, transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, filter 0.3s ease-in-out; /* Smooth mouse follow and other transitions */
             border-radius: 1.5rem; /* Rounded corners */
             box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.2), 0 8px 10px -6px rgba(0, 0, 0, 0.1); /* Deep shadow */
             display: flex;
@@ -221,13 +226,13 @@
             overflow: hidden; /* Crucial for containing background animation */
             animation: gradient-animation 15s ease infinite; /* Smooth gradient shift */
             margin-bottom: 2rem; /* Consistent margin */
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, filter 0.3s ease-in-out; /* Add transition for hover effects */
+            cursor: pointer; /* Indicate interactivity */
         }
 
         @keyframes gradient-animation {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+            0% { background-position: 0% 50%, 0% 50%; } /* Adjusted for dual background */
+            50% { background-position: 100% 50%, 100% 50%; } /* Adjusted for dual background */
+            100% { background-position: 0% 50%, 0% 50%; } /* Adjusted for dual background */
         }
 
         .animate-pulse-text {
@@ -338,7 +343,7 @@
             <h2 class="text-4xl md:text-5xl font-pacifico text-[#4CAF50] mb-4 animate-pulse">
                 Μια Σκηνή!
             </h2>
-            <h3 class="text-3xl md:text-4xl font-comfortaa font-bold text-[#4CAF50] mb-6">
+            <h3 class="text-3xl md:text-4xl font-comfortaa font-bold text-[#2196F3] mb-6">
                 Μαθήματα Ζωής… και Μαγικές Μελωδίες!
             </h3>
             <p class="text-xl md:text-2xl font-comfortaa text-[#2196F3] max-w-3xl mx-auto">
@@ -414,7 +419,7 @@
                     Ετοιμαστείτε να παρασυρθείτε σε ένα μαγικό ταξίδι! Η βραδιά είναι χωρισμένη σε τρία μοναδικά μέρη, γεμάτα φαντασία, συγκίνηση και εκπλήξεις!
                 </p>
 
-                <div class="magic-stage-animation mb-8">
+                <div id="magicStage" class="magic-stage-animation mb-8">
                     <p class="text-white text-3xl md:text-4xl font-pacifico drop-shadow-lg animate-pulse-text">
                         ✨ Μαγική Σκηνή & Παιδικές Φωνές ✨
                     </p>
@@ -465,7 +470,7 @@
                 <p class="text-lg font-comfortaa text-gray-700 mb-4 text-center">
                     Ελάτε να θαυμάσετε το ταλέντο και την αφοσίωση των μικρών μας πρωταγωνιστών! Συνολικά 13 τμήματα από 6 διαφορετικά επίπεδα του φροντιστηρίου μας **συμμετέχουν** ενεργά, γεμίζοντας τη σκηνή με φως και χαρά.
                 </p>
-                <div class="space-y-3 text-lg font-comfortaa text-gray-800">
+                <div class="space-y-3 text-lg font-comfortaa text-gray-800 text-center">
                     <p class="list-item-hover"><strong class="text-[#0056B3]">Συνολικός Αριθμός Μαθητών:</strong> 120</p>
                     <p class="list-item-hover"><strong class="text-[#0056B3]">Ηλικίες:</strong> 4 έως 10 ετών</p>
                     <p class="list-item-hover"><strong class="text-[#0056B3]">Επίπεδα Συμμετοχής:</strong></p>
@@ -569,7 +574,7 @@
                 </div>
             </section>
 
-            <section class="bg-white rounded-xl shadow-2xl p-8 mb-6 lg:col-span-2 flex flex-col justify-center items-center text-center transform hover:scale-105 transition duration-300 ease-in-out">
+            <section class="bg-white rounded-xl shadow-2xl p-8 mb-6 lg:col-span-2 transform hover:scale-105 transition duration-300 ease-in-out">
                 <h3 class="text-3xl font-pacifico text-[#007BFF] mb-6 border-b-4 border-[#2196F3] pb-2 text-center">
                     🏅 Γιορτάζουμε την Προσπάθεια!
                 </h3>
@@ -614,7 +619,10 @@
     <script>
         // Initialize Tone.js components
         let chimeSynth;
+        let magicSynth; // New synth for magic effect
+        let magicReverb; // Reverb unit for magic sound
         let isChimePlaying = false;
+        let isMagicSoundPlaying = false; // Flag for magic sound
 
         // Function to play a simple chime sound (existing)
         async function playChime() {
@@ -637,6 +645,45 @@
 
         function stopChime() {
             // Not strictly necessary for short notes
+        }
+
+        // Function to play a magical sound
+        async function playMagicSound() {
+            // Initialize Reverb if not already done
+            if (!magicReverb) {
+                magicReverb = new Tone.Reverb({
+                    decay: 1.5, // longer decay for ethereal feel
+                    preDelay: 0.01,
+                    wet: 0.5 // mix of wet/dry signal
+                }).toDestination();
+            }
+
+            if (!magicSynth) {
+                // Use a PolySynth for a richer, arpeggiated sound
+                magicSynth = new Tone.PolySynth(Tone.Synth, {
+                    oscillator: { type: "triangle" },
+                    envelope: {
+                        attack: 0.05,
+                        decay: 0.3,
+                        sustain: 0.2,
+                        release: 0.8,
+                    },
+                }).connect(magicReverb); // Connect to reverb unit
+            }
+            
+            if (Tone.context.state !== 'running') {
+                await Tone.start();
+            }
+            if (!isMagicSoundPlaying) {
+                // Play a short, ascending arpeggio
+                magicSynth.triggerAttackRelease(["C4", "E4", "G4", "C5"], "0.8");
+                isMagicSoundPlaying = true;
+                setTimeout(() => { isMagicSoundPlaying = false; }, 1000); // Prevent rapid re-triggering
+            }
+        }
+
+        function stopMagicSound() {
+            // For short notes, triggerAttackRelease handles stopping.
         }
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -709,10 +756,23 @@
                 item.addEventListener('mouseout', stopChime); // Add mouseout to stop chime if it's longer
             });
 
-            // Removed event listeners for magic stage animation and sound
+            // Add event listeners for magic stage animation and sound/visuals
             if (magicStageElement) {
-                // magicStageElement.addEventListener('mouseover', () => { playMagicSound(); magicStageElement.classList.add('magic-hover-effect'); });
-                // magicStageElement.addEventListener('mouseout', () => { stopMagicSound(); magicStageElement.classList.remove('magic-hover-effect'); });
+                magicStageElement.addEventListener('mousemove', (e) => {
+                    const rect = magicStageElement.getBoundingClientRect();
+                    const x = e.clientX - rect.left; // x position within the element
+                    const y = e.clientY - rect.top;  // y position within the element
+                    magicStageElement.style.setProperty('--mouse-x', `${x}px`);
+                    magicStageElement.style.setProperty('--mouse-y', `${y}px`);
+                });
+                magicStageElement.addEventListener('mouseover', () => {
+                    playMagicSound(); // Play sound on hover
+                    magicStageElement.classList.add('magic-hover-effect'); // Add visual effect class
+                });
+                magicStageElement.addEventListener('mouseout', () => {
+                    // stopMagicSound(); // Only stop if it's a looping sound
+                    magicStageElement.classList.remove('magic-hover-effect'); // Remove visual effect class
+                });
             }
 
             // Add click listener for flip cards
