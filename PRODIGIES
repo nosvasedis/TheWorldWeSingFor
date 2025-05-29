@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Μια Σκηνή! Μαθήματα Ζωής… και Μαγικές Μελωδίες!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Comfortaa:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"></script>
+    <style>
+        /* Padding for the main container, responsive for different screen sizes */
+        .container-padding {
+            padding: 2rem 1rem;
+        }
+        @media (min-width: 768px) {
+            .container-padding {
+                padding: 3rem 2rem;
+            }
+        }
+        @media (min-width: 1024px) {
+            .container-padding {
+                padding: 4rem;
+            }
+        }
+
+        /* Custom font families */
+        .font-pacifico {
+            font-family: 'Pacifico', cursive;
+        }
+        .font-comfortaa {
+            font-family: 'Comfortaa', cursive;
+        }
+
+        /* Style for the main poster image container */
+        .poster-container {
+            max-width: 500px; /* Slightly larger for visual impact */
+            margin: 0 auto 1rem; /* Reduced margin to bring it closer */
+            position: relative;
+            animation: float 3s ease-in-out infinite; /* Gentle floating animation */
+        }
+
+        .poster-container img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            border-radius: 1.5rem; /* More rounded corners */
+            box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.2), 0 8px 10px -6px rgba(0, 0, 0, 0.1); /* Deeper shadow */
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .poster-container img:hover {
+            transform: scale(1.02) rotate(1deg); /* Slight scale and rotate on hover */
+        }
+
+        /* Floating animation for the poster */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1000; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.6); /* Darker overlay */
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px); /* Blurred background */
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 2.5rem; /* More padding */
+            border-radius: 1rem; /* More rounded */
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.1); /* Even deeper shadow */
+            width: 90%;
+            max-width: 600px; /* Slightly wider modal */
+            position: relative;
+            animation: popIn 0.3s ease-out forwards; /* Pop-in animation */
+        }
+
+        @keyframes popIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .close-button {
+            color: #007BFF; /* Vibrant close button */
+            position: absolute;
+            top: 0.75rem;
+            right: 1.25rem;
+            font-size: 2.5rem; /* Larger close button */
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.2s ease-in-out;
+        }
+
+        .close-button:hover,
+        .close-button:focus {
+            color: #0056B3; /* Even more vibrant on hover */
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Loading spinner */
+        .loader {
+            border: 6px solid #f3f3f3; /* Thicker border */
+            border-top: 6px solid #007BFF; /* Thicker, vibrant color */
+            border-radius: 50%;
+            width: 40px; /* Larger spinner */
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 1.5rem auto; /* More margin */
+            display: none; /* Hidden by default */
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Custom styles for list items with hover effect */
+        .list-item-hover {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+            cursor: default; /* Ensure no pointer cursor if not clickable */
+        }
+        .list-item-hover:hover {
+            background-color: rgba(33, 150, 243, 0.1); /* Lighter hover background with blue tint */
+            transform: translateX(5px); /* Slight slide effect */
+        }
+        .list-item-hover span {
+            margin-right: 0.5rem; /* Space between emoji/icon and text */
+        }
+
+        /* Playful button style */
+        .playful-btn {
+            background-color: #4CAF50; /* Vibrant green */
+            color: white;
+            font-weight: bold;
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px; /* Pill shape */
+            box-shadow: 0 5px 10px rgba(76, 175, 80, 0.3); /* Soft shadow */
+            transition: all 0.3s ease-in-out;
+            border: 2px solid transparent;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .playful-btn:hover {
+            background-color: #8BC34A; /* Lighter green on hover */
+            transform: translateY(-3px) scale(1.05); /* Lift and slightly enlarge */
+            box-shadow: 0 8px 15px rgba(139, 195, 74, 0.4); /* Enhanced shadow */
+            border-color: #4CAF50; /* Border on hover */
+        }
+
+        /* New styles for the animated "Magic Stage" element */
+        .magic-stage-animation {
+            width: 100%;
+            height: 200px; /* Fixed height for consistency */
+            background: linear-gradient(45deg, #007BFF, #2196F3, #4CAF50, #007BFF); /* Gradient from new palette */
+            background-size: 400% 400%; /* Larger background for animation */
+            border-radius: 1.5rem; /* Rounded corners */
+            box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.2), 0 8px 10px -6px rgba(0, 0, 0, 0.1); /* Deep shadow */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden; /* Crucial for containing background animation */
+            animation: gradient-animation 15s ease infinite; /* Smooth gradient shift */
+            margin-bottom: 2rem; /* Consistent margin */
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, filter 0.3s ease-in-out; /* Add transition for hover effects */
+        }
+
+        @keyframes gradient-animation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .animate-pulse-text {
+            animation: pulse-text 2s infinite alternate; /* Text pulsing effect */
+        }
+
+        @keyframes pulse-text {
+            0% { text-shadow: 0 0 5px rgba(255,255,255,0.5), 0 0 10px rgba(255,255,255,0.3); transform: scale(1); }
+            100% { text-shadow: 0 0 15px rgba(255,255,255,0.8), 0 0 25px rgba(255,255,255,0.6); transform: scale(1.02); }
+        }
+
+        /* Visual effect for magic stage on hover */
+        .magic-stage-animation.magic-hover-effect {
+            transform: scale(1.03); /* Slightly enlarge */
+            box-shadow: 0 0 30px rgba(0, 123, 255, 0.7), 0 0 50px rgba(76, 175, 80, 0.5); /* Glowing shadow */
+            filter: brightness(1.1); /* Slightly brighter */
+        }
+
+        /* Flip Card Styles */
+        .flip-card {
+            background-color: transparent;
+            width: 100%;
+            height: 200px; /* Fixed height for consistency */
+            perspective: 1000px; /* 3D effect */
+            cursor: pointer;
+            border-radius: 1rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transform-style: preserve-3d; /* Crucial for 3D effect */
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d; /* Crucial for 3D effect */
+            border-radius: 1rem;
+            backface-visibility: hidden; /* Ensure backface is hidden when not flipped */
+        }
+
+        .flip-card.is-flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden; /* Safari */
+            backface-visibility: hidden;
+            border-radius: 1rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+        }
+
+        .flip-card-front {
+            background-color: #E0F2F7; /* Light blue from palette */
+            color: #0056B3;
+            font-weight: bold;
+            font-size: 1.5rem;
+            border: 2px solid #2196F3;
+        }
+        .flip-card-front .teacher-icon {
+            font-size: 4rem; /* Larger emoji size */
+            margin-bottom: 0.5rem;
+            line-height: 1; /* Adjust line height for better vertical alignment */
+        }
+        .flip-card-front p {
+            margin-top: 0; /* Remove default paragraph margin */
+            line-height: 1.2; /* Adjust line height for better text alignment */
+        }
+
+
+        .flip-card-back {
+            background-color: #BBDEFB; /* Slightly darker blue from palette */
+            color: #0056B3;
+            transform: rotateY(180deg);
+            border: 2px solid #2196F3;
+            font-size: 1rem;
+            text-align: center;
+        }
+        .flip-card-back p {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body class="bg-blue-100 text-[#0056B3] font-comfortaa leading-relaxed">
+
+    <div class="min-h-screen flex flex-col items-center justify-center container-padding">
+        <header class="text-center mb-12">
+            <div class="poster-container">
+                <img src="https://i.imgur.com/PIBt2kZ.jpeg" alt="Αφίσα της εκδήλωσης: The World We Sing For">
+            </div>
+            <h1 class="text-6xl md:text-7xl font-pacifico text-[#007BFF] mb-4 drop-shadow-lg">
+                Μια Σκηνή!
+            </h1>
+            <h2 class="text-4xl md:text-5xl font-pacifico text-[#4CAF50] mb-6 animate-pulse">
+                Μαθήματα Ζωής… και Μαγικές Μελωδίες!
+            </h2>
+            <h3 class="text-3xl md:text-4xl font-comfortaa font-bold text-[#4CAF50] mb-8">
+                "The World We Sing For"
+            </h3>
+            <p class="text-xl md:text-2xl font-comfortaa text-[#2196F3] max-w-3xl mx-auto">
+                Ετοιμαστείτε για μια αξέχαστη βραδιά γεμάτη φως, συναίσθημα και μαγικές μελωδίες, καθώς το Κέντρο Ξένων Γλωσσών "Prodigies" σας προσκαλεί σε ένα ταξίδι στον κόσμο των αξιών!
+            </p>
+        </header>
+
+        <main class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-7xl mx-auto">
+
+            <section class="bg-white rounded-xl shadow-2xl p-8 mb-6 transform hover:scale-105 transition duration-300 ease-in-out">
+                <h3 class="text-3xl font-pacifico text-[#007BFF] mb-6 border-b-4 border-[#2196F3] pb-2">
+                    ✨ Το Γεγονός
+                </h3>
+                <p class="text-lg font-comfortaa text-gray-700 mb-4">
+                    Οι μικροί μας μαθητές ανεβαίνουν στη σκηνή του "Θεάτρου Ιάκωβος Καμπανέλλης" για να σας παρασύρουν σε έναν κόσμο γεμάτο φαντασία! Μέσα από μικρά μονόπρακτα και υπέροχες μελωδίες, θα ανακαλύψουν τις αξίες που διαμορφώνουν έναν καλύτερο, πιο φωτεινό κόσμο.
+                </p>
+                <div class="space-y-4">
+                    <div class="list-item-hover flex items-center text-xl font-comfortaa text-gray-800">
+                        <span class="text-[#FFC107] text-3xl mr-3">🗓️</span>
+                        <p><strong class="text-[#0056B3]">Πότε:</strong> Παρασκευή 6 Ιουνίου 2025</p>
+                    </div>
+                    <div class="list-item-hover flex items-center text-xl font-comfortaa text-gray-800">
+                        <span class="text-[#FFC107] text-3xl mr-3">📍</span>
+                        <p><strong class="text-[#0056B3]">Πού:</strong> Θέατρο Ιάκωβος Καμπανέλλης</p>
+                    </div>
+                    <div class="list-item-hover flex items-center text-xl font-comfortaa text-gray-800">
+                        <span class="text-[#FFC107] text-3xl mr-3">🎭</span>
+                        <p><strong class="text-[#0056B3]">Τι:</strong> Μικρά μονόπρακτα & Μαγικές Μελωδίες</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="bg-white rounded-xl shadow-2xl p-8 mb-6 transform hover:scale-105 transition duration-300 ease-in-out">
+                <h3 class="text-3xl font-pacifico text-[#007BFF] mb-6 border-b-4 border-[#2196F3] pb-2">
+                    ❤️ Αξίες που Εμπνέουν
+                </h3>
+                <p class="text-lg font-comfortaa text-gray-700 mb-4">
+                    Ανακαλύψτε τις καρδιές που χτυπούν για έναν καλύτερο κόσμο! Οι μαθητές μας ζωντανεύουν θεμελιώδεις αξίες που φωτίζουν το μονοπάτι για το μέλλον. Κάντε κλικ στο ✨ για να μάπετε περισσότερα!
+                </p>
+                <ul class="list-none space-y-3">
+                    <li class="flex items-center text-lg font-comfortaa text-gray-800">
+                        <span class="text-[#4CAF50] text-2xl mr-3">✅</span> Σεβασμός και εντιμότητα
+                        <button class="ml-2 bg-[#4CAF50] text-white text-sm px-2 py-1 rounded-full hover:bg-[#8BC34A] transition duration-200 gemini-btn" data-value="Σεβασμός και εντιμότητα">✨</button>
+                    </li>
+                    <li class="flex items-center text-lg font-comfortaa text-gray-800">
+                        <span class="text-[#4CAF50] text-2xl mr-3">✅</span> Ενσυναίσθηση και αποδοχή
+                        <button class="ml-2 bg-[#4CAF50] text-white text-sm px-2 py-1 rounded-full hover:bg-[#8BC34A] transition duration-200 gemini-btn" data-value="Ενσυναίσθηση και αποδοχή">✨</button>
+                    </li>
+                    <li class="flex items-center text-lg font-comfortaa text-gray-800">
+                        <span class="text-[#4CAF50] text-2xl mr-3">✅</span> Μοίρασμα και συνεργασία
+                        <button class="ml-2 bg-[#4CAF50] text-white text-sm px-2 py-1 rounded-full hover:bg-[#8BC34A] transition duration-200 gemini-btn" data-value="Μοίρασμα και συνεργασία">✨</button>
+                    </li>
+                    <li class="flex items-center text-lg font-comfortaa text-gray-800">
+                        <span class="text-[#4CAF50] text-2xl mr-3">✅</span> Αναγνώριση και αποδοχή συναισθημάτων
+                        <button class="ml-2 bg-[#4CAF50] text-white text-sm px-2 py-1 rounded-full hover:bg-[#8BC34A] transition duration-200 gemini-btn" data-value="Αναγνώριση και αποδοχή συναισθημάτων">✨</button>
+                    </li>
+                    <li class="flex items-center text-lg font-comfortaa text-gray-800">
+                        <span class="text-[#4CAF50] text-2xl mr-3">✅</span> Ενδυνάμωση του Εαυτού, ανθεκτικότητα
+                        <button class="ml-2 bg-[#4CAF50] text-white text-sm px-2 py-1 rounded-full hover:bg-[#8BC34A] transition duration-200 gemini-btn" data-value="Ενδυνάμωση του Εαυτού, ανθεκτικότητα">✨</button>
+                    </li>
+                    <li class="flex items-center text-lg font-comfortaa text-gray-800">
+                        <span class="text-[#4CAF50] text-2xl mr-3">✅</span> Ειρήνη και δικαιοσύνη
+                        <button class="ml-2 bg-[#4CAF50] text-white text-sm px-2 py-1 rounded-full hover:bg-[#8BC34A] transition duration-200 gemini-btn" data-value="Ειρήνη και δικαιοσύνη">✨</button>
+                    </li>
+                </ul>
+            </section>
+
+            <section class="bg-white rounded-xl shadow-2xl p-8 mb-6 lg:col-span-2 transform hover:scale-105 transition duration-300 ease-in-out">
+                <h3 class="text-3xl font-pacifico text-[#007BFF] mb-6 border-b-4 border-[#2196F3] pb-2 text-center">
+                    🗓️ Το Πρόγραμμα της Βραδιάς
+                </h3>
+                <p class="text-lg font-comfortaa text-gray-700 text-center mb-6">
+                    Ετοιμαστείτε να παρασυρθείτε σε ένα μαγικό ταξίδι! Η βραδιά είναι χωρισμένη σε τρία μοναδικά μέρη, γεμάτα φαντασία, συγκίνηση και εκπλήξεις!
+                </p>
+
+                <div class="magic-stage-animation mb-8">
+                    <p class="text-white text-3xl md:text-4xl font-pacifico drop-shadow-lg animate-pulse-text">
+                        ✨ Μαγική Σκηνή & Παιδικές Φωνές ✨
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-blue-50 rounded-lg p-4 shadow-inner flex flex-col justify-between">
+                        <h4 class="text-2xl font-pacifico text-[#4CAF50] mb-4 text-center">Slot 1: Θεατρικές Παραστάσεις</h4>
+                        <p class="text-md font-comfortaa text-gray-700 text-center mb-4">Ώρα έναρξης: 18:00</p>
+                        <ul class="list-none space-y-2 text-lg font-comfortaa text-gray-800 flex-grow">
+                            <li class="list-item-hover performance-with-chime"><span>🎭</span> Pinocchio</li>
+                            <li class="list-item-hover performance-with-chime"><span>🦈</span> The Shark Family</li>
+                            <li class="list-item-hover performance-with-chime"><span>🧀</span> The Great Cheese Treaty</li>
+                            <li class="list-item-hover performance-with-chime"><span>🧺</span> The Great Picnic Puzzle</li>
+                            <li class="list-item-hover performance-with-chime"><span>🌳</span> The Forest of Respect</li>
+                            <li class="list-item-hover performance-with-chime"><span>🦸</span> Be Your Hero</li>
+                            <li class="list-item-hover performance-with-chime"><span>🤝</span> Let's Be Friends</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-blue-50 rounded-lg p-4 shadow-inner flex flex-col justify-between">
+                        <h4 class="text-2xl font-pacifico text-[#4CAF50] mb-4 text-center">Slot 2: Θεατρικές Παραστάσεις</h4>
+                        <p class="text-md font-comfortaa text-gray-700 text-center mb-4">Ώρα έναρξης: 19:30</p>
+                        <ul class="list-none space-y-2 text-lg font-comfortaa text-gray-800 flex-grow">
+                            <li class="list-item-hover performance-with-chime"><span>🎶</span> Heal The World</li>
+                            <li class="list-item-hover performance-with-chime"><span>🌌</span> Somewhere Only We Know</li>
+                            <li class="list-item-hover performance-with-chime"><span>💖</span> The Shades of the Heart</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-blue-50 rounded-lg p-4 shadow-inner flex flex-col justify-between">
+                        <h4 class="text-2xl font-pacifico text-[#4CAF50] mb-4 text-center">Slot 3: Απονομή Πιστοποιητικών</h4>
+                        <p class="text-md font-comfortaa text-gray-700 text-center mb-4">Ώρα έναρξης: 20:30</p>
+                        <ul class="list-none space-y-2 text-lg font-comfortaa text-gray-800 flex-grow">
+                            <li class="list-item-hover">Επιτυχόντες: 160 μαθητές (2023-2024)</li>
+                            <li class="list-item-hover mt-2">
+                                Θα βραβευθούν επίσης οι συμμετέχοντες και επιτυχόντες του Changemakers Challenge.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="bg-white rounded-xl shadow-2xl p-8 mb-6 transform hover:scale-105 transition duration-300 ease-in-out">
+                <h3 class="text-3xl font-pacifico text-[#007BFF] mb-6 border-b-4 border-[#2196F3] pb-2">
+                    🎓 Οι Συμμετέχοντες Μαθητές
+                </h3>
+                <p class="text-lg font-comfortaa text-gray-700 mb-4">
+                    Ελάτε να θαυμάσετε το ταλέντο και την αφοσίωση των μικρών μας πρωταγωνιστών! Συνολικά 13 τμήματα από 6 διαφορετικά επίπεδα του φροντιστηρίου μας **συμμετέχουν** ενεργά, γεμίζοντας τη σκηνή με φως και χαρά.
+                </p>
+                <div class="space-y-3 text-lg font-comfortaa text-gray-800">
+                    <p class="list-item-hover"><strong class="text-[#0056B3]">Συνολικός Αριθμός Μαθητών:</strong> 120</p>
+                    <p class="list-item-hover"><strong class="text-[#0056B3]">Ηλικίες:</strong> 4 έως 10 ετών</p>
+                    <p class="list-item-hover"><strong class="text-[#0056B3]">Επίπεδα Συμμετοχής:</strong></p>
+                    <ul class="list-disc list-inside ml-4 space-y-1">
+                        <li class="list-item-hover">Nursery</li>
+                        <li class="list-item-hover">Pre-Junior</li>
+                        <li class="list-item-hover">Junior A'</li>
+                        <li class="list-item-hover">Junior B'</li>
+                        <li class="list-item-hover">Senior A'</li>
+                        <li class="list-item-hover">Senior B'</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="bg-white rounded-xl shadow-2xl p-8 mb-6 lg:col-span-2 transform hover:scale-105 transition duration-300 ease-in-out">
+                <h3 class="text-3xl font-pacifico text-[#007BFF] mb-6 border-b-4 border-[#2196F3] pb-2 text-center">
+                    🌟 Η Ομάδα Πίσω από τη Σκηνή
+                </h3>
+                <p class="text-lg font-comfortaa text-center mb-6">
+                    Είμαστε η ομάδα που εργάζεται με αφοσίωση και σκληρή δουλειά για να ζωντανέψει κάθε μαγική στιγμή αυτής της λαμπερής εκδήλωσης! Κάντε κλικ σε κάθε μέλος για να ανακαλύψετε τον ρόλο του.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <span class="teacher-icon">👩‍🏫</span>
+                                <p>Ms Pepy</p>
+                            </div>
+                            <div class="flip-card-back">
+                                <p class="font-bold text-lg">Ms Pepy</p>
+                                <p>Υπεύνη για την ιδέα, συγγραφή σεναρίων, προετοιμασία και οργάνωση.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <span class="teacher-icon">👩‍🏫</span>
+                                <p>Ms Lily</p>
+                            </div>
+                            <div class="flip-card-back">
+                                <p class="font-bold text-lg">Ms Lily</p>
+                                <p>Υπεύνη για προετοιμασία της Senior B', την οργάνωση και για το Changemakers Challenge.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <span class="teacher-icon">👩‍🏫</span>
+                                <p>Ms Audrey</p>
+                            </div>
+                            <div class="flip-card-back">
+                                <p class="font-bold text-lg">Ms Audrey</p>
+                                <p>Υπεύνη για προετοιμασία Nursery και Pre-Junior.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <span class="teacher-icon">👩‍🏫</span>
+                                <p>Ms Helen</p>
+                            </div>
+                            <div class="flip-card-back">
+                                <p class="font-bold text-lg">Ms Helen</p>
+                                <p>Υπεύνη για προετοιμασία Junior A' και Junior B'.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <span class="teacher-icon">👩‍🏫</span>
+                                <p>Ms Stavroula</p>
+                            </div>
+                            <div class="flip-card-back">
+                                <p class="font-bold text-lg">Ms Stavroula</p>
+                                <p>Υπεύνη για συγγραφή και οργάνωση, καθώς και για το Changemakers Challenge.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <span class="teacher-icon">👨‍🏫</span>
+                                <p>Mr Nasos</p>
+                            </div>
+                            <div class="flip-card-back">
+                                <p class="font-bold text-lg">Mr Nasos</p>
+                                <p>Υπεύνη για προετοιμασία Junior A', Junior B' και Senior A'.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="bg-white rounded-xl shadow-2xl p-8 mb-6 lg:col-span-2 flex flex-col justify-center items-center text-center transform hover:scale-105 transition duration-300 ease-in-out">
+                <h3 class="text-3xl font-pacifico text-[#007BFF] mb-6 border-b-4 border-[#2196F3] pb-2 text-center">
+                    🏅 Γιορτάζουμε την Προσπάθεια!
+                </h3>
+                <p class="text-lg font-comfortaa text-gray-700">
+                    Μια στιγμή λάμψης και αναγνώρισης! Η βραδιά κορυφώνεται με την επίσημη απονομή των πιστοποιητικών, γιορτάζοντας την αφοσίωση, την πρόοδο και την επιτυχία των μαθητών μας. Ελάτε να τους χειροκροτήσετε και να μοιραστείτε τη χαρά τους!
+                </p>
+            </section>
+
+            <section class="bg-white rounded-xl shadow-2xl p-8 mb-6 lg:col-span-2 flex flex-col justify-center items-center text-center transform hover:scale-105 transition duration-300 ease-in-out">
+                <h3 class="text-3xl font-pacifico text-[#007BFF] mb-6">
+                    Σας Περιμένουμε!
+                </h3>
+                <p class="text-2xl font-pacifico text-[#4CAF50] mb-8 font-bold">
+                    Μέσα από παιδικές φωνές και νότες, η ελπίδα ενός καλύτερου κόσμου αποκτά ηχηρό παλμό.
+                </p>
+                <p class="text-xl font-comfortaa text-gray-700 mb-6">
+                    Μη χάσετε αυτή τη μοναδική ευκαιρία! Ελάτε να τα στηρίξετε, να τα καμαρώσετε, να συγκινηθείτε… και να τραγουδήσετε μαζί τους σε αυτή τη γιορτή της μάθησης και της δημιουργίας!
+                </p>
+                <div class="text-sm font-comfortaa text-gray-500 space-x-2">
+                    <span class="bg-blue-200 text-[#0056B3] px-3 py-1 rounded-full">#ΜικρέςΦωνέςΜεγάλαΜηνύματα</span>
+                    <span class="bg-blue-200 text-[#0056B3] px-3 py-1 rounded-full">#ΠαράστασηΑξιώνΚαιΜελωδιών</span>
+                    <span class="bg-blue-200 text-[#0056B3] px-3 py-1 rounded-full">#ΕκπαίδευσηΜεΨυχή</span>
+                    <span class="bg-blue-200 text-[#0056B3] px-3 py-1 rounded-full">#ProdigiesLanguageSchool</span>
+                </div>
+            </section>
+        </main>
+
+        <footer class="mt-12 text-center font-comfortaa text-gray-600 text-sm">
+            <p>&copy; 2025 Κέντρο Ξένων Γλωσσών "Prodigies". Όλα τα δικαιώματα κατοχυρωμένα.</p>
+        </footer>
+    </div>
+
+    <div id="geminiModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="closeModalBtn">&times;</span>
+            <h4 class="text-2xl font-pacifico text-[#0056B3] mb-4" id="modalTitle"></h4>
+            <div class="loader" id="modalLoader"></div>
+            <p class="text-lg font-comfortaa text-gray-700" id="modalContent"></p>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Tone.js components
+        let chimeSynth;
+        let isChimePlaying = false;
+
+        // Function to play a simple chime sound (existing)
+        async function playChime() {
+            if (!chimeSynth) {
+                chimeSynth = new Tone.Synth({
+                    oscillator: { type: "sine" },
+                    envelope: { attack: 0.01, decay: 0.2, sustain: 0.1, release: 0.5 },
+                }).toDestination();
+            }
+            if (Tone.context.state !== 'running') {
+                await Tone.start();
+            }
+            if (!isChimePlaying) {
+                chimeSynth.triggerAttackRelease("C5", "8n");
+                isChimePlaying = true;
+                setTimeout(() => { isChimePlaying = false; }, 300);
+            }
+        }
+
+        function stopChime() {
+            // Not strictly necessary for short notes
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const geminiButtons = document.querySelectorAll('.gemini-btn');
+            const allHoverItems = document.querySelectorAll('.list-item-hover');
+            const performanceWithChimeItems = document.querySelectorAll('.performance-with-chime');
+            const flipCards = document.querySelectorAll('.flip-card');
+            const magicStageElement = document.querySelector('.magic-stage-animation'); // Get the magic stage element
+
+            const modal = document.getElementById('geminiModal');
+            const closeModalBtn = document.getElementById('closeModalBtn');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalContent = document.getElementById('modalContent');
+            const modalLoader = document.getElementById('modalLoader');
+
+            // Function to call Gemini API and update modal
+            async function fetchGeminiContent(promptTitle, promptValue) {
+                modalTitle.textContent = `Τι σημαίνει: ${promptTitle}`;
+                modalContent.textContent = '';
+                modalLoader.style.display = 'block'; // Show loader
+                modal.style.display = 'flex'; // Show modal
+
+                try {
+                    let chatHistory = [];
+                    const prompt = `Εξήγησε την αξία '${promptValue}' με ένα σύντομο, εμπνευσμένο παράδειγμα ή σκέψη για παιδιά, σε απλή ελληνική γλώσσα.`;
+                    chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+                    const payload = { contents: chatHistory };
+                    const apiKey = ""; // If you want to use models other than gemini-2.0-flash or imagen-3.0-generate-002, provide an API key here. Otherwise, leave this as-is.
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    const result = await response.json();
+                    if (result.candidates && result.candidates.length > 0 &&
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+                        result.candidates[0].content.parts.length > 0) {
+                        const text = result.candidates[0].content.parts[0].text;
+                        modalContent.textContent = text;
+                    } else {
+                        modalContent.textContent = 'Δεν ήταν δυνατή η λήψη απάντησης. Παρακαλώ δοκιμάστε ξανά.';
+                    }
+                } catch (error) {
+                    console.error('Σφάλμα κατά την κλήση του Gemini API:', error);
+                    modalContent.textContent = 'Προέκυψε σφάλμα κατά την επικοινωνία με το API. Παρακαλώ δοκιμάστε ξανά.';
+                } finally {
+                    modalLoader.style.display = 'none'; // Hide loader
+                }
+            }
+
+            // Event listeners for "Αξίες που Εμπνέουν" buttons
+            geminiButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    fetchGeminiContent(button.dataset.value, button.dataset.value);
+                });
+            });
+
+            // Apply visual hover effect to all relevant list items
+            allHoverItems.forEach(item => {
+                // The visual effects are handled by the .list-item-hover class in CSS
+                // No need for JS listeners for visual effects here
+            });
+
+            // Apply chime sound effect ONLY to performance titles
+            performanceWithChimeItems.forEach(item => {
+                item.addEventListener('mouseover', playChime);
+                item.addEventListener('mouseout', stopChime); // Add mouseout to stop chime if it's longer
+            });
+
+            // Removed event listeners for magic stage animation and sound
+            if (magicStageElement) {
+                // magicStageElement.addEventListener('mouseover', () => { playMagicSound(); magicStageElement.classList.add('magic-hover-effect'); });
+                // magicStageElement.addEventListener('mouseout', () => { stopMagicSound(); magicStageElement.classList.remove('magic-hover-effect'); });
+            }
+
+            // Add click listener for flip cards
+            flipCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    card.classList.toggle('is-flipped');
+                });
+            });
+
+
+            closeModalBtn.addEventListener('click', () => {
+                modal.style.display = 'none'; // Hide modal
+            });
+
+            // Close modal when clicking outside of it
+            window.addEventListener('click', (event) => {
+                if (event.target == modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
