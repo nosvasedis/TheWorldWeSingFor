@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Μια Σκηνή! Μαθήματα Ζωής… και Μαγικές Μελωδίες!</title>
+    <title>The World We Sing For</title>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Comfortaa:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"></script>
@@ -31,12 +31,52 @@
             font-family: 'Comfortaa', cursive;
         }
 
+        /* Header Section Styling */
+        header {
+            position: relative; /* For absolute positioning of background elements */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 70vh; /* Ensure enough height for content */
+            padding: 2rem 1rem;
+            text-align: center;
+            overflow: hidden; /* Hide overflowing animations */
+            margin-bottom: 2rem; /* Space below header */
+        }
+
+        /* Animated background elements for header */
+        .header-bg-element {
+            position: absolute;
+            font-size: 3rem;
+            opacity: 0.6;
+            animation: float-random 15s infinite ease-in-out;
+            z-index: 0;
+        }
+
+        .header-bg-element:nth-child(1) { top: 10%; left: 10%; animation-delay: 0s; }
+        .header-bg-element:nth-child(2) { top: 20%; right: 15%; animation-delay: 2s; font-size: 2.5rem; }
+        .header-bg-element:nth-child(3) { bottom: 15%; left: 5%; animation-delay: 4s; }
+        .header-bg-element:nth-child(4) { bottom: 10%; right: 10%; animation-delay: 6s; font-size: 3.5rem; }
+        .header-bg-element:nth-child(5) { top: 5%; left: 40%; animation-delay: 8s; font-size: 2rem; }
+        .header-bg-element:nth-child(6) { bottom: 5%; left: 30%; animation-delay: 10s; font-size: 3rem; }
+
+        @keyframes float-random {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0.6; }
+            25% { transform: translateY(-15px) rotate(5deg); opacity: 0.7; }
+            50% { transform: translateY(0) rotate(0deg); opacity: 0.6; }
+            75% { transform: translateY(15px) rotate(-5deg); opacity: 0.7; }
+            100% { transform: translateY(0) rotate(0deg); opacity: 0.6; }
+        }
+
+
         /* Style for the main poster image container */
         .poster-container {
-            max-width: 500px; /* Slightly larger for visual impact */
+            max-width: 400px; /* Adjusted max-width for better integration */
             margin: 0 auto 1rem; /* Reduced margin to bring it closer */
             position: relative;
             animation: float 3s ease-in-out infinite; /* Gentle floating animation */
+            z-index: 1; /* Ensure poster is above background elements */
         }
 
         .poster-container img {
@@ -282,17 +322,24 @@
 
     <div class="min-h-screen flex flex-col items-center justify-center container-padding">
         <header class="text-center mb-12">
+            <span class="header-bg-element" style="color: #4CAF50;">🎵</span>
+            <span class="header-bg-element" style="color: #FFC107;">✨</span>
+            <span class="header-bg-element" style="color: #2196F3;">🌟</span>
+            <span class="header-bg-element" style="color: #4CAF50;">🎶</span>
+            <span class="header-bg-element" style="color: #FFC107;">💫</span>
+            <span class="header-bg-element" style="color: #2196F3;">🎵</span>
+
             <div class="poster-container">
                 <img src="https://i.imgur.com/PIBt2kZ.jpeg" alt="Αφίσα της εκδήλωσης: The World We Sing For">
             </div>
-            <h1 class="text-6xl md:text-7xl font-pacifico text-[#007BFF] mb-4 drop-shadow-lg">
-                Μια Σκηνή!
-            </h1>
-            <h2 class="text-4xl md:text-5xl font-pacifico text-[#4CAF50] mb-6 animate-pulse">
-                Μαθήματα Ζωής… και Μαγικές Μελωδίες!
-            </h2>
-            <h3 class="text-3xl md:text-4xl font-comfortaa font-bold text-[#4CAF50] mb-8">
+            <h1 class="text-6xl md:text-7xl font-pacifico text-[#007BFF] mb-2 drop-shadow-lg">
                 "The World We Sing For"
+            </h1>
+            <h2 class="text-4xl md:text-5xl font-pacifico text-[#4CAF50] mb-4 animate-pulse">
+                Μια Σκηνή!
+            </h2>
+            <h3 class="text-3xl md:text-4xl font-comfortaa font-bold text-[#4CAF50] mb-6">
+                Μαθήματα Ζωής… και Μαγικές Μελωδίες!
             </h3>
             <p class="text-xl md:text-2xl font-comfortaa text-[#2196F3] max-w-3xl mx-auto">
                 Ετοιμαστείτε για μια αξέχαστη βραδιά γεμάτη φως, συναίσθημα και μαγικές μελωδίες, καθώς το Κέντρο Ξένων Γλωσσών "Prodigies" σας προσκαλεί σε ένα ταξίδι στον κόσμο των αξιών!
@@ -411,18 +458,18 @@
                 </div>
             </section>
 
-            <section class="bg-white rounded-xl shadow-2xl p-8 mb-6 lg:col-span-2 transform hover:scale-105 transition duration-300 ease-in-out">
-                <h3 class="text-3xl font-pacifico text-[#007BFF] mb-6 border-b-4 border-[#2196F3] pb-2">
+            <section class="bg-white rounded-xl shadow-2xl p-8 mb-6 transform hover:scale-105 transition duration-300 ease-in-out">
+                <h3 class="text-3xl font-pacifico text-[#007BFF] mb-6 border-b-4 border-[#2196F3] pb-2 text-center">
                     🎓 Οι Συμμετέχοντες Μαθητές
                 </h3>
-                <p class="text-lg font-comfortaa text-gray-700 mb-4">
+                <p class="text-lg font-comfortaa text-gray-700 mb-4 text-center">
                     Ελάτε να θαυμάσετε το ταλέντο και την αφοσίωση των μικρών μας πρωταγωνιστών! Συνολικά 13 τμήματα από 6 διαφορετικά επίπεδα του φροντιστηρίου μας **συμμετέχουν** ενεργά, γεμίζοντας τη σκηνή με φως και χαρά.
                 </p>
                 <div class="space-y-3 text-lg font-comfortaa text-gray-800">
                     <p class="list-item-hover"><strong class="text-[#0056B3]">Συνολικός Αριθμός Μαθητών:</strong> 120</p>
                     <p class="list-item-hover"><strong class="text-[#0056B3]">Ηλικίες:</strong> 4 έως 10 ετών</p>
                     <p class="list-item-hover"><strong class="text-[#0056B3]">Επίπεδα Συμμετοχής:</strong></p>
-                    <ul class="list-item-hover list-disc list-inside ml-auto mr-auto space-y-1 text-left">
+                    <ul class="list-item-hover list-disc list-inside mx-auto space-y-1 text-left">
                         <li class="list-item-hover">Nursery</li>
                         <li class="list-item-hover">Pre-Junior</li>
                         <li class="list-item-hover">Junior A'</li>
