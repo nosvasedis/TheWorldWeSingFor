@@ -358,7 +358,7 @@
                     ✨ Το Γεγονός
                 </h3>
                 <p class="text-lg font-comfortaa text-gray-700 mb-4">
-                    Οι μικροί μας μαθητές ανεβαίνουν στη σκηνή του "Θεάτρου Ιάκωβος Καμπανέλλης" για να σας παρασύρουν σε έναν κόσμο γεμάτο φαντασία! Μέσα από μικρά μονόπρακτα και υπέροχες μελωδίες, θα ανακαλύψουν τις αξίες που διαμορφώνουν έναν καλύτερο, πιο φωτεινό κόσμο.
+                    Οι μικροί μας μαθητές ανεβαίνουν στη σκηνή του "Θεάτρου Ιάκωβος Καμπανέλλης" για να σας παρασύρουν σε έναν κόσμο γεμάτο φαντασία! Μέσα από μικρά μονόπρακτα και υπέροφες μελωδίες, θα ανακαλύψουν τις αξίες που διαμορφώνουν έναν καλύτερο, πιο φωτεινό κόσμο.
                 </p>
                 <div class="space-y-4">
                     <div class="list-item-hover flex items-center text-xl font-comfortaa text-gray-800">
@@ -619,10 +619,7 @@
     <script>
         // Initialize Tone.js components
         let chimeSynth;
-        let magicSynth; // New synth for magic effect
-        let magicReverb; // Reverb unit for magic sound
         let isChimePlaying = false;
-        let isMagicSoundPlaying = false; // Flag for magic sound
 
         // Function to play a simple chime sound (existing)
         async function playChime() {
@@ -647,51 +644,12 @@
             // Not strictly necessary for short notes
         }
 
-        // Function to play a magical sound
-        async function playMagicSound() {
-            // Initialize Reverb if not already done
-            if (!magicReverb) {
-                magicReverb = new Tone.Reverb({
-                    decay: 1.5, // longer decay for ethereal feel
-                    preDelay: 0.01,
-                    wet: 0.5 // mix of wet/dry signal
-                }).toDestination();
-            }
-
-            if (!magicSynth) {
-                // Use a PolySynth for a richer, arpeggiated sound
-                magicSynth = new Tone.PolySynth(Tone.Synth, {
-                    oscillator: { type: "triangle" },
-                    envelope: {
-                        attack: 0.05,
-                        decay: 0.3,
-                        sustain: 0.2,
-                        release: 0.8,
-                    },
-                }).connect(magicReverb); // Connect to reverb unit
-            }
-            
-            if (Tone.context.state !== 'running') {
-                await Tone.start();
-            }
-            if (!isMagicSoundPlaying) {
-                // Play a short, ascending arpeggio
-                magicSynth.triggerAttackRelease(["C4", "E4", "G4", "C5"], "0.8");
-                isMagicSoundPlaying = true;
-                setTimeout(() => { isMagicSoundPlaying = false; }, 1000); // Prevent rapid re-triggering
-            }
-        }
-
-        function stopMagicSound() {
-            // For short notes, triggerAttackRelease handles stopping.
-        }
-
         document.addEventListener('DOMContentLoaded', () => {
             const geminiButtons = document.querySelectorAll('.gemini-btn');
             const allHoverItems = document.querySelectorAll('.list-item-hover');
             const performanceWithChimeItems = document.querySelectorAll('.performance-with-chime');
             const flipCards = document.querySelectorAll('.flip-card');
-            const magicStageElement = document.querySelector('.magic-stage-animation'); // Get the magic stage element
+            const magicStageElement = document.querySelector('#magicStage'); // Select by ID
 
             const modal = document.getElementById('geminiModal');
             const closeModalBtn = document.getElementById('closeModalBtn');
@@ -756,7 +714,7 @@
                 item.addEventListener('mouseout', stopChime); // Add mouseout to stop chime if it's longer
             });
 
-            // Add event listeners for magic stage animation and sound/visuals
+            // Add event listeners for magic stage animation and visual effects (no sound)
             if (magicStageElement) {
                 magicStageElement.addEventListener('mousemove', (e) => {
                     const rect = magicStageElement.getBoundingClientRect();
@@ -766,11 +724,9 @@
                     magicStageElement.style.setProperty('--mouse-y', `${y}px`);
                 });
                 magicStageElement.addEventListener('mouseover', () => {
-                    playMagicSound(); // Play sound on hover
                     magicStageElement.classList.add('magic-hover-effect'); // Add visual effect class
                 });
                 magicStageElement.addEventListener('mouseout', () => {
-                    // stopMagicSound(); // Only stop if it's a looping sound
                     magicStageElement.classList.remove('magic-hover-effect'); // Remove visual effect class
                 });
             }
