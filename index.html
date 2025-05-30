@@ -25,10 +25,10 @@
         }
 
         /* Custom font families */
-        .font-quicksand { /* Changed from font-pacifico */
+        .font-quicksand {
             font-family: 'Quicksand', sans-serif;
         }
-        .font-inter { /* Changed from font-comfortaa */
+        .font-inter {
             font-family: 'Inter', sans-serif;
         }
 
@@ -212,12 +212,11 @@
             width: 100%;
             height: 200px; /* Fixed height for consistency */
             /* Initial background for the glow, will be updated by JS */
-            background-image: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.4) 0%, transparent 50%),
-                              linear-gradient(45deg, #007BFF, #2196F3, #4CAF50, #007BFF);
-            background-size: 200px 200px, 400% 400%; /* Size of glow, size of gradient */
-            background-repeat: no-repeat, repeat;
-            background-position: var(--mouse-x, 50%) var(--mouse-y, 50%), 0% 50%;
-            transition: background-position 0.1s linear, transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, filter 0.3s ease-in-out; /* Smooth mouse follow and other transitions */
+            background-image: linear-gradient(45deg, #007BFF, #2196F3, #4CAF50, #007BFF); /* Only linear gradient */
+            background-size: 400% 400%; /* Larger background for animation */
+            background-repeat: repeat;
+            background-position: 0% 50%; /* Start position for gradient animation */
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, filter 0.3s ease-in-out; /* Add transition for hover effects */
             border-radius: 1.5rem; /* Rounded corners */
             box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.2), 0 8px 10px -6px rgba(0, 0, 0, 0.1); /* Deep shadow */
             display: flex;
@@ -454,7 +453,7 @@
                     ✨ Το Γεγονός
                 </h3>
                 <p class="text-lg font-inter text-gray-700 mb-4">
-                    Οι μικροί μας μαθητές ανεβαίνουν στη σκηνή του Θεάτρου "Ιάκωβος Καμπανέλλης" για να σας παρασύρουν σε έναν κόσμο γεμάτο φαντασία! Μέσα από μικρά μονόπρακτα και υπέροχες μελωδίες, θα ανακαλύψουν τις αξίες που διαμορφώνουν έναν καλύτερο, πιο φωτεινό κόσμο.
+                    Οι μικροί μας μαθητές ανεβαίνουν στη σκηνή του Θεάτρου "Ιάκωβος Καμπανέλλης" για να σας παρασύρουν σε έναν κόσμο γεμάτο φαντασία! Μέσα από μικρά μονόπρακτα και υπέροφες μελωδίες, θα ανακαλύψουν τις αξίες που διαμορφώνουν έναν καλύτερο, πιο φωτεινό κόσμο.
                 </p>
                 <div class="space-y-4">
                     <div class="list-item-hover flex items-center text-xl font-inter text-gray-800">
@@ -463,7 +462,7 @@
                     </div>
                     <div class="list-item-hover flex items-center text-xl font-inter text-gray-800">
                         <span class="text-[#FFC107] text-3xl mr-3">📍</span>
-                        <p><strong class="text-[#0056B3]">Πού:</strong> Θέατρο Ιάκωβος Καμπανέλλης</p>
+                        <p><strong class="text-[#0056B3]">Πού:</strong> Θεάτρο Ιάκωβος Καμπανέλλης</p>
                     </div>
                     <div class="list-item-hover flex items-center text-xl font-inter text-gray-800">
                         <span class="text-[#FFC107] text-3xl mr-3">🎭</span>
@@ -531,8 +530,10 @@
                             <li class="list-item-hover performance-with-chime"><span>🧀</span> The Great Cheese Treaty</li>
                             <li class="list-item-hover performance-with-chime"><span>🧺</span> The Great Picnic Puzzle</li>
                             <li class="list-item-hover performance-with-chime"><span>🌳</span> The Forest of Respect</li>
-                            <li class="list-item-hover performance-with-chime"><span>🦸</span> Be Your Hero</li>
                             <li class="list-item-hover performance-with-chime"><span>🤝</span> Let's Be Friends</li>
+                            <li class="list-item-hover text-sm text-gray-600 text-center mt-4">
+                                Στο κλείσιμο του Slot 1 θα βραβευθούν οι συμμετέχοντες του 7ου Youth Conference.
+                            </li>
                         </ul>
                     </div>
 
@@ -540,22 +541,25 @@
                         <h4 class="text-2xl font-quicksand text-[#0056B3] mb-4 text-center">Slot 2: Θεατρικές Παραστάσεις</h4>
                         <p class="text-md font-inter text-gray-700 text-center mb-4">Ώρα έναρξης: 19:30</p>
                         <ul class="list-none space-y-2 text-lg font-inter text-gray-800 flex-grow">
-                            <li class="list-item-hover performance-with-chime"><span>🎶</span> Heal The World</li>
+                            <li class="list-item-hover performance-with-chime"><span>🦸</span> Be Your Hero</li> <li class="list-item-hover performance-with-chime"><span>🎶</span> Heal The World</li>
                             <li class="list-item-hover performance-with-chime"><span>🌌</span> Somewhere Only We Know</li>
                             <li class="list-item-hover performance-with-chime"><span>💖</span> The Shades of the Heart</li>
                         </ul>
+                        <li class="list-item-hover text-sm text-gray-600 text-center mt-4">
+                            Στην έναρξη του Slot 2 θα βραβευθούν οι συμμετέχοντες και επιτυχόντες του Changemakers Challenge.
+                        </li>
                     </div>
                 </div>
 
                 <div class="performance-card-color-3 rounded-lg p-4 shadow-inner flex flex-col justify-between w-full">
                     <h4 class="text-2xl font-quicksand text-[#0056B3] mb-4 text-center">Slot 3: Απονομή Πιστοποιητικών</h4>
                     <p class="text-md font-inter text-gray-700 text-center mb-4">Ώρα έναρξης: 20:30</p>
-                    <ul class="list-none space-y-2 text-lg font-inter text-gray-800 flex-grow">
-                        <li class="list-item-hover">Επιτυχόντες: 160 μαθητές (2023-2024)</li>
-                        <li class="list-item-hover mt-2">
-                            Θα βραβευθούν επίσης οι συμμετέχοντες και επιτυχόντες του Changemakers Challenge.
-                        </li>
-                    </ul>
+                    <div class="list-item-hover flex flex-col items-center justify-center w-full bg-yellow-100 p-3 rounded-md shadow-sm mt-4">
+                        <span class="text-5xl mb-2">🏆</span>
+                        <p class="text-center text-lg font-inter text-gray-800">
+                            <strong class="text-[#0056B3]">Επιτυχόντες:</strong> <span class="text-4xl font-quicksand text-[#4CAF50]">160</span> μαθητές (2023-2024)
+                        </p>
+                    </div>
                 </div>
             </section>
 
@@ -568,17 +572,41 @@
                 </p>
                 <div class="flex flex-col items-center w-full">
                     <div class="space-y-3 text-lg font-inter text-gray-800 w-full">
-                        <p class="list-item-hover text-left"><strong class="text-[#0056B3]">Συνολικός Αριθμός Μαθητών:</strong> 120</p>
-                        <p class="list-item-hover text-left"><strong class="text-[#0056B3]">Ηλικίες:</strong> 4 έως 10 ετών</p>
-                        <p class="list-item-hover text-left"><strong class="text-[#0056B3]">Επίπεδα Συμμετοχής:</strong></p>
-                        <ul class="list-disc list-inside space-y-1 text-left w-full">
-                            <li class="list-item-hover">Nursery</li>
-                            <li class="list-item-hover">Pre-Junior</li>
-                            <li class="list-item-hover">Junior A'</li>
-                            <li class="list-item-hover">Junior B'</li>
-                            <li class="list-item-hover">Senior A'</li>
-                            <li class="list-item-hover">Senior B'</li>
-                        </ul>
+                        <div class="list-item-hover flex items-center justify-center w-full bg-blue-100 p-2 rounded-md shadow-sm">
+                            <span class="text-blue-600 text-3xl mr-2">🔢</span>
+                            <p class="text-center"><strong class="text-[#0056B3]">Συνολικός Αριθμός Μαθητών:</strong> <span class="text-4xl font-quicksand text-[#4CAF50]">120</span></p>
+                        </div>
+                        <div class="list-item-hover flex items-center justify-center w-full bg-green-100 p-2 rounded-md shadow-sm">
+                            <span class="text-green-600 text-3xl mr-2">👶</span>
+                            <p class="text-center"><strong class="text-[#0056B3]">Ηλικίες:</strong> <span class="text-4xl font-quicksand text-[#4CAF50]">4 έως 10</span> ετών</p>
+                        </div>
+                        <p class="text-lg font-inter text-gray-800 w-full text-center mt-4"><strong class="text-[#0056B3]">Επίπεδα Συμμετοχής:</strong></p>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 w-full text-center mt-2">
+                            <div class="list-item-hover bg-blue-200 p-2 rounded-md shadow-sm flex-col justify-center">
+                                <span class="text-3xl">👶</span>
+                                <p>Nursery</p>
+                            </div>
+                            <div class="list-item-hover bg-green-200 p-2 rounded-md shadow-sm flex-col justify-center">
+                                <span class="text-3xl">🧒</span>
+                                <p>Pre-Junior</p>
+                            </div>
+                            <div class="list-item-hover bg-yellow-200 p-2 rounded-md shadow-sm flex-col justify-center">
+                                <span class="text-3xl">🎒</span>
+                                <p>Junior A'</p>
+                            </div>
+                            <div class="list-item-hover bg-purple-200 p-2 rounded-md shadow-sm flex-col justify-center">
+                                <span class="text-3xl">✏️</span>
+                                <p>Junior B'</p>
+                            </div>
+                            <div class="list-item-hover bg-red-200 p-2 rounded-md shadow-sm flex-col justify-center">
+                                <span class="text-3xl">🎓</span>
+                                <p>Senior A'</p>
+                            </div>
+                            <div class="list-item-hover bg-teal-200 p-2 rounded-md shadow-sm flex-col justify-center">
+                                <span class="text-3xl">🌟</span>
+                                <p>Senior B'</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -588,86 +616,73 @@
                     🌟 Η Ομάδα Πίσω από τη Σκηνή
                 </h3>
                 <p class="text-lg font-inter text-center mb-6">
-                    Είμαστε η ομάδα που εργάζεται με αφοσίωση και σκληρή δουλειά για να ζωντανέψει κάθε μαγική στιγμή αυτής της λαμπερής εκδήλωσης! Κάντε κλικ σε κάθε μέλος για να ανακαλύψετε τον ρόλο του.
+                    Είμαστε η ομάδα που εργάζεται με αφοσίωση και σκληρή δουλειά για να ζωντανέψει κάθε μαγική στιγμή αυτής της λαμπερής εκδήλωσης! Κάντε κύλιση για να γνωρίσετε κάθε μέλος και τον ρόλο του.
                 </p>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div class="flip-card">
-                        <div class="flip-card-inner">
-                            <div class="flip-card-front">
-                                <span class="teacher-icon">👩‍🏫</span>
-                                <p>Ms Pepy</p>
-                            </div>
-                            <div class="flip-card-back">
-                                <p class="font-bold text-lg">Ms Pepy</p>
-                                <p>Υπεύθυνη για την ιδέα, συγγραφή σεναρίων, προετοιμασία Senior A' και οργάνωση.</p>
-                            </div>
-                        </div>
+                <div class="flex overflow-x-auto snap-x snap-mandatory pb-4 space-x-6 lg:justify-center">
+                    <div class="flex-none w-64 h-72 bg-blue-200 rounded-xl shadow-md p-4 flex flex-col items-center justify-center snap-center transform hover:scale-105 transition duration-300 ease-in-out">
+                        <span class="text-6xl mb-2">👩‍🏫</span>
+                        <h4 class="text-xl font-quicksand font-bold text-[#0056B3] mb-2">Ms Pepy</h4>
+                        <p class="text-sm font-inter text-gray-700 text-center">Υπεύθυνη για την ιδέα, συγγραφή σεναρίων, προετοιμασία και οργάνωση. Σχεδίασε το project και συντόνισε την ομάδα μαθητών της στο Youth Conference.</p>
                     </div>
 
-                    <div class="flip-card">
-                        <div class="flip-card-inner">
-                            <div class="flip-card-front">
-                                <span class="teacher-icon">👩‍🏫</span>
-                                <p>Ms Lily</p>
-                            </div>
-                            <div class="flip-card-back">
-                                <p class="font-bold text-lg">Ms Lily</p>
-                                <p>Υπεύθυνη για προετοιμασία της Senior B', την οργάνωση και για το Changemakers Challenge.</p>
-                            </div>
-                        </div>
+                    <div class="flex-none w-64 h-72 bg-green-200 rounded-xl shadow-md p-4 flex flex-col items-center justify-center snap-center transform hover:scale-105 transition duration-300 ease-in-out">
+                        <span class="text-6xl mb-2">👩‍🏫</span>
+                        <h4 class="text-xl font-quicksand font-bold text-[#0056B3] mb-2">Ms Lily</h4>
+                        <p class="text-sm font-inter text-gray-700 text-center">Υπεύθυνη για προετοιμασία της Senior B', την οργάνωση και για το Changemakers Challenge.</p>
                     </div>
 
-                    <div class="flip-card">
-                        <div class="flip-card-inner">
-                            <div class="flip-card-front">
-                                <span class="teacher-icon">👩‍🏫</span>
-                                <p>Ms Audrey</p>
-                            </div>
-                            <div class="flip-card-back">
-                                <p class="font-bold text-lg">Ms Audrey</p>
-                                <p>Υπεύθυνη για προετοιμασία Nursery και Pre-Junior.</p>
-                            </div>
-                        </div>
+                    <div class="flex-none w-64 h-72 bg-yellow-200 rounded-xl shadow-md p-4 flex flex-col items-center justify-center snap-center transform hover:scale-105 transition duration-300 ease-in-out">
+                        <span class="text-6xl mb-2">👩‍🏫</span>
+                        <h4 class="text-xl font-quicksand font-bold text-[#0056B3] mb-2">Ms Audrey</h4>
+                        <p class="text-sm font-inter text-gray-700 text-center">Υπεύθυνη για προετοιμασία Nursery και Pre-Junior.</p>
                     </div>
 
-                    <div class="flip-card">
-                        <div class="flip-card-inner">
-                            <div class="flip-card-front">
-                                <span class="teacher-icon">👩‍🏫</span>
-                                <p>Ms Helen</p>
-                            </div>
-                            <div class="flip-card-back">
-                                <p class="font-bold text-lg">Ms Helen</p>
-                                <p>Υπεύθυνη για προετοιμασία Junior A' και Junior B'.</p>
-                            </div>
-                        </div>
+                    <div class="flex-none w-64 h-72 bg-purple-200 rounded-xl shadow-md p-4 flex flex-col items-center justify-center snap-center transform hover:scale-105 transition duration-300 ease-in-out">
+                        <span class="text-6xl mb-2">👩‍🏫</span>
+                        <h4 class="text-xl font-quicksand font-bold text-[#0056B3] mb-2">Ms Helen</h4>
+                        <p class="text-sm font-inter text-gray-700 text-center">Υπεύθυνη για προετοιμασία Junior A' και Junior B'.</p>
                     </div>
 
-                    <div class="flip-card">
-                        <div class="flip-card-inner">
-                            <div class="flip-card-front">
-                                <span class="teacher-icon">👩‍🏫</span>
-                                <p>Ms Stavroula</p>
-                            </div>
-                            <div class="flip-card-back">
-                                <p class="font-bold text-lg">Ms Stavroula</p>
-                                <p>Υπεύθυνη για συγγραφή σεναρίων, οργάνωση, καθώς και για το Changemakers Challenge.</p>
-                            </div>
-                        </div>
+                    <div class="flex-none w-64 h-72 bg-red-200 rounded-xl shadow-md p-4 flex flex-col items-center justify-center snap-center transform hover:scale-105 transition duration-300 ease-in-out">
+                        <span class="text-6xl mb-2">👩‍🏫</span>
+                        <h4 class="text-xl font-quicksand font-bold text-[#0056B3] mb-2">Ms Stavroula</h4>
+                        <p class="text-sm font-inter text-gray-700 text-center">Υπεύθυνη για συγγραφή σεναρίων και οργάνωση, καθώς και για το Changemakers Challenge.</p>
                     </div>
 
-                    <div class="flip-card">
-                        <div class="flip-card-inner">
-                            <div class="flip-card-front">
-                                <span class="teacher-icon">👨‍🏫</span>
-                                <p>Mr Nasos</p>
-                            </div>
-                            <div class="flip-card-back">
-                                <p class="font-bold text-lg">Mr Nasos</p>
-                                <p>Υπεύθυνος για προετοιμασία Junior A', Junior B' και Senior A'.</p>
-                            </div>
-                        </div>
+                    <div class="flex-none w-64 h-72 bg-teal-200 rounded-xl shadow-md p-4 flex flex-col items-center justify-center snap-center transform hover:scale-105 transition duration-300 ease-in-out">
+                        <span class="text-6xl mb-2">👨‍🏫</span>
+                        <h4 class="text-xl font-quicksand font-bold text-[#0056B3] mb-2">Mr Nasos</h4>
+                        <p class="text-sm font-inter text-gray-700 text-center">Υπεύθυνος για προετοιμασία Junior A', Junior B' και Senior A'.</p>
+                    </div>
+
+                    <div class="flex-none w-64 h-72 bg-orange-200 rounded-xl shadow-md p-4 flex flex-col items-center justify-center snap-center transform hover:scale-105 transition duration-300 ease-in-out">
+                        <span class="text-6xl mb-2">👩‍🏫</span>
+                        <h4 class="text-xl font-quicksand font-bold text-[#0056B3] mb-2">Ms Eva</h4>
+                        <p class="text-sm font-inter text-gray-700 text-center">Συντόνισε την ομάδα μαθητών της στο Youth Conference. Συνέβαλε στην επιτυχία των μαθητών της στις εξετάσεις πιστοποίησης.</p>
+                    </div>
+
+                    <div class="flex-none w-64 h-72 bg-indigo-200 rounded-xl shadow-md p-4 flex flex-col items-center justify-center snap-center transform hover:scale-105 transition duration-300 ease-in-out">
+                        <span class="text-6xl mb-2">👩‍🏫</span>
+                        <h4 class="text-xl font-quicksand font-bold text-[#0056B3] mb-2">Ms Rena</h4>
+                        <p class="text-sm font-inter text-gray-700 text-center">Συνέβαλε στην επιτυχία των μαθητών στις εξετάσεις πιστοποίησης.</p>
+                    </div>
+
+                    <div class="flex-none w-64 h-72 bg-pink-200 rounded-xl shadow-md p-4 flex flex-col items-center justify-center snap-center transform hover:scale-105 transition duration-300 ease-in-out">
+                        <span class="text-6xl mb-2">👩‍🏫</span>
+                        <h4 class="text-xl font-quicksand font-bold text-[#0056B3] mb-2">Ms Marina</h4>
+                        <p class="text-sm font-inter text-gray-700 text-center">Συνέβαλε στην επιτυχία των μαθητών στις εξετάσεις πιστοποίησης.</p>
+                    </div>
+
+                    <div class="flex-none w-64 h-72 bg-cyan-200 rounded-xl shadow-md p-4 flex flex-col items-center justify-center snap-center transform hover:scale-105 transition duration-300 ease-in-out">
+                        <span class="text-6xl mb-2">👨‍🏫</span>
+                        <h4 class="text-xl font-quicksand font-bold text-[#0056B3] mb-2">Mr Matthew</h4>
+                        <p class="text-sm font-inter text-gray-700 text-center">Συνέβαλε στην επιτυχία των μαθητών στις εξετάσεις πιστοποίησης.</p>
+                    </div>
+
+                    <div class="flex-none w-64 h-72 bg-lime-200 rounded-xl shadow-md p-4 flex flex-col items-center justify-center snap-center transform hover:scale-105 transition duration-300 ease-in-out">
+                        <span class="text-6xl mb-2">👩‍💼</span> <h4 class="text-xl font-quicksand font-bold text-[#0056B3] mb-2">Ms Zabeta</h4>
+                        <p class="text-sm font-inter text-gray-700 text-center">Η αφοσιωμένη γραμματέας μας, βασικός πυλώνας στην οργάνωση της εκδήλωσης.</p>
                     </div>
                 </div>
             </section>
@@ -744,7 +759,6 @@
             const geminiButtons = document.querySelectorAll('.gemini-btn');
             const allHoverItems = document.querySelectorAll('.list-item-hover');
             const performanceWithChimeItems = document.querySelectorAll('.performance-with-chime');
-            const flipCards = document.querySelectorAll('.flip-card');
             const magicStageElement = document.querySelector('#magicStage'); // Select by ID
 
             const modal = document.getElementById('geminiModal');
@@ -829,12 +843,8 @@
                 });
             }
 
-            // Add click listener for flip cards
-            flipCards.forEach(card => {
-                card.addEventListener('click', () => {
-                    card.classList.toggle('is-flipped');
-                });
-            });
+            // No flip cards in this version
+            // flipCards.forEach(card => { /* ... */ });
 
 
             closeModalBtn.addEventListener('click', () => {
