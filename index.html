@@ -5,10 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The World We Sing For</title>
     <link rel="icon" href="favicon.png" type="image/png">
-    <link rel="icon" type="image/png" href="/android-chrome-192x192.png">
-    <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png">
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"></script>
@@ -457,7 +453,7 @@
                     ✨ Το Γεγονός
                 </h3>
                 <p class="text-lg font-inter text-gray-700 mb-4">
-                    Οι μικροί μας μαθητές ανεβαίνουν στη σκηνή του Θεάτρου "Ιάκωβος Καμπανέλλης" για να σας παρασύρουν σε έναν κόσμο γεμάτο φαντασία! Μέσα από μικρά μονόπρακτα και υπέροχες μελωδίες, θα ανακαλύψουν τις αξίες που διαμορφώνουν έναν καλύτερο, πιο φωτεινό κόσμο.
+                    Οι μικροί μας μαθητές ανεβαίνουν στη σκηνή του Θεάτρου "Ιάκωβος Καμπανέλλης" για να σας παρασύρουν σε έναν κόσμο γεμάτο φαντασία! Μέσα από μικρά μονόπρακτα και υπέροφες μελωδίες, θα ανακαλύψουν τις αξίες που διαμορφώνουν έναν καλύτερο, πιο φωτεινό κόσμο.
                 </p>
                 <div class="space-y-4">
                     <div class="list-item-hover flex items-center text-xl font-inter text-gray-800">
@@ -606,10 +602,12 @@
                                 <span class="play-title-clickable cursor-pointer flex items-center"
                                       data-play-title="The Shades of the Heart"
                                       data-students='{
-                                          "Red": ["Δραγάτης Α.", "Ζαβόλιας Μ.", "Ζαντιώτης Σ.", "Μπαϊραχτάρι Α.", "Ούλα Α.", "Χατζηγεωργίου Β."],
-                                          "Blue": ["Βουλγαρίδης Κ.", "Γεωργοπούλου Τ.", "Καρουάνα Ε.", "Μουσταφά Μ.", "Χυσάι Ο."],
-                                          "Yellow": ["Κουγιουμτζόγλου Α.", "Μουσταφά Ι.", "Ντρούγκα Ν.", "Παπαγεωργίου Ε.", "Ρακιπλάρι Ε.", "Τσεκούρα Ν."],
-                                          "Black and White": ["Αγγελίδου Μ.", "Μάλαμα Β.", "Μουλλάχου Ε.", "Οροκλού Α.", "Παππά Α.", "Τσεσμελής Γ.", "Φούκης Γ."]
+                                          "Junior B": {
+                                              "Red": ["Δραγάτης Α.", "Ζαβόλιας Μ.", "Ζαντιώτης Σ.", "Μπαϊραχτάρι Α.", "Ούλα Α.", "Χατζηγεωργίου Β."],
+                                              "Blue": ["Βουλγαρίδης Κ.", "Γεωργοπούλου Τ.", "Καρουάνα Ε.", "Μουσταφά Μ.", "Χυσάι Ο."],
+                                              "Yellow": ["Κουγιουμτζόγλου Α.", "Μουσταφά Ι.", "Ντρούγκα Ν.", "Παπαγεωργίου Ε.", "Ρακιπλάρι Ε.", "Τσεκούρα Ν."],
+                                              "Black and White": ["Αγγελίδου Μ.", "Μάλαμα Β.", "Μουλλάχου Ε.", "Οροκλού Α.", "Παππά Α.", "Τσεσμελής Γ.", "Φούκης Γ."]
+                                          }
                                       }'>
                                     <span>4. 💖</span> The Shades of the Heart
                                 </span>
@@ -887,18 +885,16 @@
 
                 let contentHtml = '';
 
-                // Check if studentsData is an object (for "The Shades of the Heart" type structure)
-                // or a simple array (for other plays with single class)
-                const isNested = Object.values(studentsData).some(val => typeof val === 'object' && !Array.isArray(val) && Object.values(val).some(arr => Array.isArray(arr)));
+                // Check if the data structure is for "The Shades of the Heart" (nested by class then color)
+                if (playTitle === "The Shades of the Heart" && studentsData["Junior B"]) {
+                    const juniorBData = studentsData["Junior B"];
+                    contentHtml += `<p class="font-bold text-[#0056B3] mt-4">Junior B:</p>`; // Explicitly state Junior B class
 
-
-                if (playTitle === "The Shades of the Heart") {
-                    // Handle nested structure for "The Shades of the Heart"
-                    for (const subCategory in studentsData) {
-                        if (studentsData.hasOwnProperty(subCategory)) {
-                            const students = studentsData[subCategory].sort(); // Sort students alphabetically
-                            contentHtml += `<p class="font-bold text-[#0056B3] mt-4">${subCategory}:</p>`;
-                            contentHtml += `<ul class="list-disc list-inside ml-4 space-y-1 text-gray-700">`;
+                    for (const subCategory in juniorBData) {
+                        if (juniorBData.hasOwnProperty(subCategory)) {
+                            const students = juniorBData[subCategory].sort(); // Sort students alphabetically
+                            contentHtml += `<p class="font-semibold text-gray-800 mt-2 ml-4">${subCategory}:</p>`; // Sub-category (color) title
+                            contentHtml += `<ul class="list-disc list-inside ml-8 space-y-1 text-gray-700">`;
                             students.forEach(student => {
                                 contentHtml += `<li>${student}</li>`;
                             });
