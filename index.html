@@ -832,16 +832,8 @@
                 item.addEventListener('mouseout', stopChime); // Add mouseout to stop chime if it's longer
             });
 
-            // Removed event listeners for magic stage animation and sound
+            // Removed mousemove listener from magicStageElement as it was not used for visual effects
             if (magicStageElement) {
-                magicStageElement.addEventListener('mousemove', (e) => {
-                    const rect = magicStageElement.getBoundingClientRect();
-                    const x = e.clientX - rect.left; // x position within the element
-                    const y = e.clientY - rect.top;  // y position within the element
-                    magicStageElement.style.setProperty('--mouse-x', `${x}px`);
-                    magicStageElement.style.setProperty('--mouse-y', `${y}px`);
-                });
-                // Removed mouseover/mouseout listeners that triggered sound
                 magicStageElement.addEventListener('mouseover', () => {
                     magicStageElement.classList.add('magic-hover-effect'); // Add visual effect class
                 });
