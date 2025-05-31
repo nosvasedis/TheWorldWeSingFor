@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The World We Sing For</title>
-    <link rel="icon" href="favicon.png" type="image/png">
+      <link rel="icon" href="favicon.png" type="image/png">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="manifest" href="/site.webmanifest">
     <meta name="theme-color" content="#ffffff">
@@ -254,88 +254,32 @@
             filter: brightness(1.1); /* Slightly brighter */
         }
 
-        /* Flip Card Styles */
-        .flip-card {
-            background-color: transparent;
-            width: 100%;
-            height: 200px; /* Fixed height for consistency */
-            perspective: 1000px; /* 3D effect */
-            cursor: pointer;
-            border-radius: 1rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            transform-style: preserve-3d; /* Crucial for 3D effect */
-        }
-
-        .flip-card-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            text-align: center;
-            transition: transform 0.6s;
-            transform-style: preserve-3d; /* Crucial for 3D effect */
-            border-radius: 1rem;
-            backface-visibility: hidden; /* Ensure backface is hidden when not flipped */
-        }
-
-        .flip-card.is-flipped .flip-card-inner {
-            transform: rotateY(180deg);
-        }
-
-        .flip-card-front, .flip-card-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            -webkit-backface-visibility: hidden; /* Safari */
-            backface-visibility: hidden;
-            border-radius: 1rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 1rem;
-        }
-
-        .flip-card-front {
-            background-color: #E0F2F7; /* Light blue from palette */
-            color: #0056B3;
+        /* Play Title Box Styles */
+        .play-title-box {
+            display: inline-flex; /* Use inline-flex to keep content together and allow padding */
+            align-items: center; /* Vertically align content */
+            padding: 0.6rem 1.2rem; /* Adjust padding for a boxier feel */
+            border-radius: 0.75rem; /* More rounded corners */
             font-weight: bold;
-            font-size: 1.5rem;
-            border: 2px solid #2196F3;
-        }
-        .flip-card-front .teacher-icon {
-            font-size: 4rem; /* Larger emoji size */
-            margin-bottom: 0.5rem;
-            line-height: 1; /* Adjust line height for better vertical alignment */
-        }
-        .flip-card-front p {
-            margin-top: 0; /* Remove default paragraph margin */
-            line-height: 1.2; /* Adjust line height for better text alignment */
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Subtle shadow */
+            cursor: pointer; /* Indicate it's clickable */
+            width: 100%; /* Make it take full width of its container */
+            justify-content: flex-start; /* Align content to the start */
         }
 
-
-        .flip-card-back {
-            background-color: #BBDEFB; /* Slightly darker blue from palette */
-            color: #0056B3;
-            transform: rotateY(180deg);
-            border: 2px solid #2196F3;
-            font-size: 1rem;
-            text-align: center;
+        .play-title-box:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.3); /* Enhanced shadow on hover */
         }
-        .flip-card-back p {
-            margin-bottom: 0.5rem;
+        .play-title-box span {
+            margin-right: 0.75rem; /* Space between number/emoji and text */
         }
 
-        /* Multicolored performance cards */
-        .performance-card-color-1 { background-color: #BBDEFB; } /* Light Blue */
-        .performance-card-color-2 { background-color: #C8E6C9; } /* Light Green */
-        .performance-card-color-3 { background-color: #FFECB3; } /* Light Yellow */
-        .performance-card-color-4 { background-color: #B2EBF2; } /* Cyan */
-        .performance-card-color-5 { background-color: #FFCDD2; } /* Light Red (subtle) */
-        .performance-card-color-6 { background-color: #DCEDC8; } /* Lime Green */
-        .performance-card-color-7 { background-color: #FFE0B2; } /* Orange */
-        .performance-card-color-8 { background-color: #CFD8DC; } /* Blue Grey */
-        .performance-card-color-9 { background-color: #F8BBD0; } /* Pink */
-        .performance-card-color-10 { background-color: #D1C4E9; } /* Deep Purple */
+        /* Multicolored performance cards - Enhanced Colors */
+        .performance-card-color-1 { background-color: #90CAF9; } /* Slightly deeper Blue */
+        .performance-card-color-2 { background-color: #A5D6A7; } /* Slightly deeper Green */
+        .performance-card-color-3 { background-color: #FFD54F; } /* Slightly deeper Yellow */
 
         .performance-card-color-1,
         .performance-card-color-2,
@@ -528,43 +472,43 @@
                         <h4 class="text-2xl font-quicksand text-[#0056B3] mb-4 text-center">Slot 1: Θεατρικές Παραστάσεις</h4>
                         <p class="text-md font-inter text-gray-700 text-center mb-4">Ώρα έναρξης: 18:00</p>
                         <ul class="list-none space-y-2 text-lg font-inter text-gray-800 flex-grow">
-                            <li class="list-item-hover performance-with-chime">
-                                <span class="play-title-clickable cursor-pointer"
+                            <li class="performance-with-chime">
+                                <span class="play-title-clickable play-title-box bg-blue-200 text-blue-800"
                                       data-play-title="The Great Picnic Puzzle"
                                       data-students='{"Junior A": ["Αλλολάρι Β.", "Βραχιώτης Β.", "Μουλλάχου Ρ.", "Οικονομοπούλου Ε.", "Πανουργιάς Γ.", "Σκλήβας Γ.", "Τόγια Ι.", "Ψωμάς Γ."]}'>
                                     <span>1. 🧺</span> The Great Picnic Puzzle
                                 </span>
                             </li>
-                            <li class="list-item-hover performance-with-chime">
-                                <span class="play-title-clickable cursor-pointer"
+                            <li class="performance-with-chime">
+                                <span class="play-title-clickable play-title-box bg-green-200 text-green-800"
                                       data-play-title="The Forest of Respect"
                                       data-students='{"Junior A": ["Αρετάκης Π.", "Βενετάντης Ν.", "Καρίμαλης Ν.", "Κατσιαούνης Γ.", "Κυριακίδη Σ.", "Κυριακίδης Σ.", "Λιάπης Θ.", "Μπουρτουζούδης Ι.", "Νικολαΐδης Α.", "Σαμπάνι Π.", "Τσιβρά Α."]}'>
                                     <span>2. 🌳</span> The Forest of Respect
                                 </span>
                             </li>
-                            <li class="list-item-hover performance-with-chime">
-                                <span class="play-title-clickable cursor-pointer"
+                            <li class="performance-with-chime">
+                                <span class="play-title-clickable play-title-box bg-yellow-200 text-yellow-800"
                                       data-play-title="Let&#39;s Be Friends!"
                                       data-students='{"Junior A": ["Διαμαντοπούλου Α.", "Ισμαήλ Ν.", "Κατσουλάκη Κ.", "Κατσουλάκης Θ.", "Μπίλια Ε.", "Ξανθοπούλου Κ.", "Ξενιάς Σ.", "Σοφοκλέους Θ."]}'>
                                     <span>3. 🤝</span> Let's Be Friends!
                                 </span>
                             </li>
-                            <li class="list-item-hover performance-with-chime">
-                                <span class="play-title-clickable cursor-pointer"
+                            <li class="performance-with-chime">
+                                <span class="play-title-clickable play-title-box bg-pink-200 text-pink-800"
                                       data-play-title="The Shark Family"
                                       data-students='{"Nursery": ["Αβραμίδης Σ.", "Αβραμίδου Ε.", "Κανάκη Μ.", "Μέρνα Α.", "Μπουλαξής Δ.", "Ναζινάν Ε.", "Ντελή Ν.", "Ξανθοπούλου Α."]}'>
                                     <span>4. 🦈</span> The Shark Family
                                 </span>
                             </li>
-                            <li class="list-item-hover performance-with-chime">
-                                <span class="play-title-clickable cursor-pointer"
+                            <li class="performance-with-chime">
+                                <span class="play-title-clickable play-title-box bg-purple-200 text-purple-800"
                                       data-play-title="Pinocchio"
                                       data-students='{"Nursery": ["Γρηγόρη Β.", "Ιμπραχίμ Μ.", "Κυπραίου Μ.", "Κυριακίδου Σ.", "Μαρινοπούλου Μ.", "Μπουράμοβα Ρ.", "Τάουρο Α."]}'>
                                     <span>5. 🎭</span> Pinocchio
                                 </span>
                             </li>
-                            <li class="list-item-hover performance-with-chime">
-                                <span class="play-title-clickable cursor-pointer"
+                            <li class="performance-with-chime">
+                                <span class="play-title-clickable play-title-box bg-indigo-200 text-indigo-800"
                                       data-play-title="The Great Cheese Treaty"
                                       data-students='{"Pre-Junior": ["Αγγελακάκη Μ.", "Αγγελακάκη Σ.", "Δρόσου Δ.", "Ιμπραχίμ Μ.", "Μάλαμα Β.", "Μάλαμας Γ.", "Μονάντερου Ε.", "Μουράτης Γ.", "Στάικος Σ.", "Τσαμπαθώνης Π."]}'>
                                     <span>6. 🧀</span> The Great Cheese Treaty
@@ -580,29 +524,29 @@
                         <h4 class="text-2xl font-quicksand text-[#0056B3] mb-4 text-center">Slot 2: Θεατρικές Παραστάσεις</h4>
                         <p class="text-md font-inter text-gray-700 text-center mb-4">Ώρα έναρξης: 19:30</p>
                         <ul class="list-none space-y-2 text-lg font-inter text-gray-800 flex-grow">
-                            <li class="list-item-hover performance-with-chime">
-                                <span class="play-title-clickable cursor-pointer"
+                            <li class="performance-with-chime">
+                                <span class="play-title-clickable play-title-box bg-red-200 text-red-800"
                                       data-play-title="Heal The World"
                                       data-students='{"Senior A": ["Αντωνίου Χ.", "Δέτσης Δ.", "Κατσιάδα Χ.", "Κίτσου Δ.", "Κουγιουμτζόγλου Σ.", "Λούλια Α.", "Μαμούνης Σ.", "Μόρφης Φ.", "Ξανθάκος Μ.", "Χωριανόπουλος Π."]}'>
                                     <span>1. 🎶</span> Heal The World
                                 </span>
                             </li>
-                            <li class="list-item-hover performance-with-chime">
-                                <span class="play-title-clickable cursor-pointer"
+                            <li class="performance-with-chime">
+                                <span class="play-title-clickable play-title-box bg-orange-200 text-orange-800"
                                       data-play-title="My Own Superhero"
                                       data-students='{"Senior B": ["Ανδριωμένος Γ.", "Δεφαράνα Δ.", "Καλόγηρος Ν.", "Μακρίδου Α.", "Σπυριάδη Σ.", "Τάουρο Α.", "Τρίγκα Α.", "Τσιβρά Μ.", "Χαλκιά Α."]}'>
                                     <span>2. 🦸</span> My Own Superhero
                                 </span>
                             </li>
-                            <li class="list-item-hover performance-with-chime">
-                                <span class="play-title-clickable cursor-pointer"
+                            <li class="performance-with-chime">
+                                <span class="play-title-clickable play-title-box bg-teal-200 text-teal-800"
                                       data-play-title="Somewhere Only We Know"
                                       data-students='{"Senior A": ["Δελβενακιώτη Ε.", "Κυτίνου Ε.", "Μπουκάκης Δ.", "Μπουλαξή Ε.", "Τσοκάνη Δ.", "Φρατζεσκάκη Σ.", "Χατζηγεωργίου Ι."]}'>
                                     <span>3. 🌌</span> Somewhere Only We Know
                                 </span>
                             </li>
-                            <li class="list-item-hover performance-with-chime flex flex-col items-start">
-                                <span class="play-title-clickable cursor-pointer flex items-center"
+                            <li class="performance-with-chime flex flex-col items-start">
+                                <span class="play-title-clickable play-title-box bg-blue-200 text-blue-800 flex items-center"
                                       data-play-title="The Shades of the Heart"
                                       data-students='{
                                           "Junior B": {
@@ -801,7 +745,13 @@
     </div>
 
     <script>
-        // Initialize Tone.js components
+        // Removed Tone.js components for background music
+        // let backgroundSynth;
+        // let isMusicPlaying = false;
+        // function to initialize and toggle background music (removed)
+        // async function toggleBackgroundMusic() { /* ... */ }
+
+        // Initialize Tone.js components for chime sound
         let chimeSynth;
         let isChimePlaying = false;
 
@@ -834,12 +784,16 @@
             const performanceWithChimeItems = document.querySelectorAll('.performance-with-chime');
             const magicStageElement = document.querySelector('#magicStage'); // Select by ID
             const playTitleClickableElements = document.querySelectorAll('.play-title-clickable'); // New selector for clickable play titles
+            // Removed musicToggleButton constant
 
             const modal = document.getElementById('geminiModal');
             const closeModalBtn = document.getElementById('closeModalBtn');
             const modalTitle = document.getElementById('modalTitle');
             const modalContent = document.getElementById('modalContent');
             const modalLoader = document.getElementById('modalLoader');
+
+            // Removed event listener for music toggle button
+            // if (musicToggleButton) { musicToggleButton.addEventListener('click', toggleBackgroundMusic); }
 
             // Function to call Gemini API and update modal (for "Αξίες που Εμπνέουν" buttons)
             async function fetchGeminiContent(promptTitle, promptValue) {
@@ -851,7 +805,7 @@
                 try {
                     let chatHistory = [];
                     // Instruct Gemini not to use bold formatting
-                    const prompt = `Εξήγησε την αξία '${promptValue}' με ένα σύντομο, εμπνευσμένο παράδειγμα ή σκέψη για παιδιά, σε απλή ελληνική γλώσσα. Μην χρησιμοποιήσεις έντονη γραφή (bold) ή αστερίσκους.`;
+                    const prompt = `Εξήγησε την αξία '${promptValue}' με ένα σύντομο, εμπνευσμένο παράδειγμα ή σκέψη για παιδιά, σε απλή ελληνική γλώσση. Μην χρησιμοποιήσεις έντονη γραφή (bold) ή αστερίσκους.`;
                     chatHistory.push({ role: "user", parts: [{ text: prompt }] });
                     const payload = { contents: chatHistory };
                     const apiKey = "AIzaSyB6x8T1lksor5TGSaqr3Oi0ESTMv6xUBo4"; // If you want to use models other than gemini-2.0-flash or imagen-3.0-generate-002, provide an API key here. Otherwise, leave this as-is.
