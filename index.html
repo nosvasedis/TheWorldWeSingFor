@@ -911,7 +911,6 @@
                     const workerBaseUrl = 'https://gemini-proxy.nvasedis-cc5.workers.dev';
                     const geminiModelPath = '/v1beta/models/gemini-2.0-flash:generateContent';
                     const apiUrl = `${workerBaseUrl}${geminiModelPath}`; 
-                    console.log('Attempting to call API at URL:', apiUrl);
                     const response = await fetch(apiUrl, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
