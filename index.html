@@ -908,7 +908,7 @@
                     const prompt = `Εξήγησε την αξία '${promptValue}' με ένα σύντομο, εμπνευσμένο παράδειγμα ή σκέψη για παιδιά, σε απλή ελληνική γλώσση. Μην χρησιμοποιήσεις έντονη γραφή (bold) ή αστερίσκους.`;
                     chatHistory.push({ role: "user", parts: [{ text: prompt }] });
                     const payload = { contents: chatHistory };
-                    const workerBaseUrl = 'gemini-proxy.nvasedis-cc5.workers.dev'; //
+                    const workerBaseUrl = 'gemini-proxy.nvasedis-cc5.workers.dev';
                     const geminiModelPath = '/v1beta/models/gemini-2.0-flash:generateContent';
                     const apiUrl = `<span class="math-inline">\{workerBaseUrl\}</span>{geminiModelPath}`;
                     const response = await fetch(apiUrl, {
