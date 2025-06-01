@@ -910,7 +910,7 @@
                     const payload = { contents: chatHistory };
                     const workerBaseUrl = 'https://gemini-proxy.nvasedis-cc5.workers.dev';
                     const geminiModelPath = '/v1beta/models/gemini-2.0-flash:generateContent';
-                    const apiUrl = `<span class="math-inline">\{workerBaseUrl\}</span>{geminiModelPath}`;
+                    const apiUrl = `${workerBaseUrl}${geminiModelPath}`; 
                     const response = await fetch(apiUrl, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
