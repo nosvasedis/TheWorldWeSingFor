@@ -908,9 +908,10 @@
                     const prompt = `Εξήγησε την αξία '${promptValue}' με ένα σύντομο, εμπνευσμένο παράδειγμα ή σκέψη για παιδιά, σε απλή ελληνική γλώσση. Μην χρησιμοποιήσεις έντονη γραφή (bold) ή αστερίσκους.`;
                     chatHistory.push({ role: "user", parts: [{ text: prompt }] });
                     const payload = { contents: chatHistory };
-                    const apiKey = "AIzaSyB6x8T1lksor5TGSaqr3Oi0ESTMv6xUBo4"; // If you want to use models other than gemini-2.0-flash or imagen-3.0-generate-002, provide an API key here. Otherwise, leave this as-is.
-                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-
+                    const apiKey = ""; // If you want to use models other than gemini-2.0-flash or imagen-3.0-generate-002, provide an API key here. Otherwise, leave this as-is.
+                    const workerBaseUrl = https://fc617b4f-gemini-proxy.nvasedis-cc5.workers.dev/; //
+                    const geminiModelPath = '/v1beta/models/gemini-2.0-flash:generateContent';
+                    const apiUrl = `<span class="math-inline">\{workerBaseUrl\}</span>{geminiModelPath}`;
                     const response = await fetch(apiUrl, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
