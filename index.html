@@ -431,6 +431,7 @@
 
     <div class="min-h-screen flex flex-col items-center justify-center container-padding">
         <header class="text-center mb-12">
+            <!-- Animated background elements for header - moved here from <head> -->
             <span class="header-bg-element" style="color: #4CAF50;">🎵</span>
             <span class="header-bg-element" style="color: #FFC107;">✨</span>
             <span class="header-bg-element" style="color: #2196F3;">🌟</span>
@@ -439,6 +440,27 @@
             <span class="header-bg-element" style="color: #2196F3;">🚀</span>
             <span class="header-bg-element" style="color: #FFC107;">🌈</span>
             <span class="header-bg-element" style="color: #4CAF50;">💡</span>
+            <span class="header-bg-element" style="color: #2196F3;">💖</span>
+            <span class="header-bg-element" style="color: #FFC107;">🎉</span>
+            <span class="header-bg-element" style="color: #4CAF50;">🏆</span>
+            <span class="header-bg-element" style="color: #2196F3;">🥳</span>
+            <span class="header-bg-element" style="color: #FFC107;">✅</span>
+            <span class="header-bg-element" style="color: #4CAF50;">❤️</span>
+            <span class="header-bg-element" style="color: #2196F3;">🎓</span>
+            <span class="header-bg-element" style="color: #FFC107;">🎼</span>
+            <span class="header-bg-element" style="color: #4CAF50;">🎤</span>
+            <span class="header-bg-element" style="color: #2196F3;">🎭</span>
+            <span class="header-bg-element" style="color: #FFC107;">☀️</span>
+            <span class="header-bg-element" style="color: #4CAF50;">🌸</span>
+            <span class="header-bg-element" style="color: #2196F3;">🦋</span>
+            <span class="header-bg-element" style="color: #FFC107;">🎈</span>
+            <span class="header-bg-element" style="color: #4CAF50;">🕊️</span>
+            <span class="header-bg-element" style="color: #2196F3;">✨</span>
+            <span class="header-bg-element" style="color: #FFC107;">🌟</span>
+            <span class="header-bg-element" style="color: #4CAF50;">🎶</span>
+            <span class="header-bg-element" style="color: #2196F3;">💫</span>
+            <span class="header-bg-element" style="color: #FFC107;">💡</span>
+            <span class="header-bg-element" style="color: #4CAF50;">🚀</span>
             <span class="header-bg-element" style="color: #2196F3;">💖</span>
             <span class="header-bg-element" style="color: #FFC107;">🎉</span>
             <span class="header-bg-element" style="color: #4CAF50;">🏆</span>
@@ -608,7 +630,7 @@
                             <li class="performance-with-chime">
                                 <span class="play-title-clickable play-title-box bg-indigo-200 text-indigo-800"
                                       data-play-title="The Great Cheese Treaty"
-                                      data-students='{"Pre-Junior": ["Αγγελακάκη Μ.", "Αγγελακάκη Σ.", "Δρόσου Δ.", "Ιμπραχίμ Μ.", "Μάλαμα Β.", "Μάλαμας Γ.", "Μονάντερου Ε.", "Μουράτης Γ.", "Στάικος Σ."]}'>
+                                      data-students='{"Pre-Junior": ["Αγγελακάκη Μ.", "Αγγελακάκη Σ.", "Δρόσου Δ.", "Ιμπραχίμ Μ.", "Μάλαμα Β.", "Μάλαμας Γ.", "Μονάντερου Ε.", "Μουράτης Γ.", "Στάικος Σ.", "Σκλίβας Γ."]}'>
                                     <span>6. 🧀</span> The Great Cheese Treaty
                                 </span>
                             </li>
@@ -849,7 +871,6 @@
         // let backgroundSynth;
         // let isMusicPlaying = false;
         // function to initialize and toggle background music (removed)
-        // async function toggleBackgroundMusic() { /* ... */ }
 
         // Initialize Tone.js components for chime sound
         let chimeSynth;
@@ -910,7 +931,7 @@
                     const payload = { contents: chatHistory };
                     const workerBaseUrl = 'https://gemini-proxy.nvasedis-cc5.workers.dev';
                     const geminiModelPath = '/v1beta/models/gemini-2.0-flash:generateContent';
-                    const apiUrl = `${workerBaseUrl}${geminiModelPath}`; 
+                    const apiUrl = `${workerBaseUrl}${geminiModelPath}`;
                     const response = await fetch(apiUrl, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
@@ -971,6 +992,16 @@
                             contentHtml += `</ul>`;
                         }
                     }
+                }
+
+                // Add the new section for "The Great Cheese Treaty"
+                if (playTitle === "The Great Cheese Treaty") {
+                    contentHtml += `<p class="font-bold text-[#0056B3] mt-4">Αφηγούνται οι μαθήτριες:</p>`;
+                    contentHtml += `<ul class="list-disc list-inside ml-4 space-y-1 text-gray-700">`;
+                    contentHtml += `<li>Μπουλαξή Ε.</li>`;
+                    contentHtml += `<li>Φραντζεσκάκη Σ.</li>`;
+                    contentHtml += `<li>Χατζηγεωργίου Ι.</li>`;
+                    contentHtml += `</ul>`;
                 }
 
                 modalContent.innerHTML = contentHtml;
