@@ -281,7 +281,7 @@
 
         @keyframes pulse-text {
             0% { text-shadow: 0 0 5px rgba(255,255,255,0.5), 0 0 10px rgba(255,255,255,0.3); transform: scale(1); }
-            100% { text-shadow: 0 0 15px rgba(255,255,255,0.8), 0 0 25px rgba(255,255,255,0.6); transform: scale(1.02); }
+            100% { text-shadow: 0 0 15px rgba(255,255,255,0.8), 0 0 25px rgba(255,255,255,0.6); transform: scale(1.03); }
         }
 
         /* Visual effect for magic stage on hover */
@@ -425,13 +425,35 @@
             box-shadow: 0 15px 25px rgba(0,0,0,0.3); /* More striking shadow */
         }
 
+        /* Styling for the video container to make it responsive */
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 1.5rem; /* Rounded corners for the video */
+            box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.2), 0 8px 10px -6px rgba(0, 0, 0, 0.1); /* Shadow for the video */
+            margin-top: 2rem; /* Space above the video */
+            margin-bottom: 2rem; /* Space below the video */
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
     </style>
 </head>
 <body class="bg-blue-100 text-[#0056B3] font-inter leading-relaxed">
 
     <div class="min-h-screen flex flex-col items-center justify-center container-padding">
         <header class="text-center mb-12">
-            <!-- Animated background elements for header - moved here from <head> -->
+            <!-- Animated background elements for header -->
             <span class="header-bg-element" style="color: #4CAF50;">🎵</span>
             <span class="header-bg-element" style="color: #FFC107;">✨</span>
             <span class="header-bg-element" style="color: #2196F3;">🌟</span>
@@ -440,27 +462,6 @@
             <span class="header-bg-element" style="color: #2196F3;">🚀</span>
             <span class="header-bg-element" style="color: #FFC107;">🌈</span>
             <span class="header-bg-element" style="color: #4CAF50;">💡</span>
-            <span class="header-bg-element" style="color: #2196F3;">💖</span>
-            <span class="header-bg-element" style="color: #FFC107;">🎉</span>
-            <span class="header-bg-element" style="color: #4CAF50;">🏆</span>
-            <span class="header-bg-element" style="color: #2196F3;">🥳</span>
-            <span class="header-bg-element" style="color: #FFC107;">✅</span>
-            <span class="header-bg-element" style="color: #4CAF50;">❤️</span>
-            <span class="header-bg-element" style="color: #2196F3;">🎓</span>
-            <span class="header-bg-element" style="color: #FFC107;">🎼</span>
-            <span class="header-bg-element" style="color: #4CAF50;">🎤</span>
-            <span class="header-bg-element" style="color: #2196F3;">🎭</span>
-            <span class="header-bg-element" style="color: #FFC107;">☀️</span>
-            <span class="header-bg-element" style="color: #4CAF50;">🌸</span>
-            <span class="header-bg-element" style="color: #2196F3;">🦋</span>
-            <span class="header-bg-element" style="color: #FFC107;">🎈</span>
-            <span class="header-bg-element" style="color: #4CAF50;">🕊️</span>
-            <span class="header-bg-element" style="color: #2196F3;">✨</span>
-            <span class="header-bg-element" style="color: #FFC107;">🌟</span>
-            <span class="header-bg-element" style="color: #4CAF50;">🎶</span>
-            <span class="header-bg-element" style="color: #2196F3;">💫</span>
-            <span class="header-bg-element" style="color: #FFC107;">💡</span>
-            <span class="header-bg-element" style="color: #4CAF50;">🚀</span>
             <span class="header-bg-element" style="color: #2196F3;">💖</span>
             <span class="header-bg-element" style="color: #FFC107;">🎉</span>
             <span class="header-bg-element" style="color: #4CAF50;">🏆</span>
@@ -608,7 +609,7 @@
                             </li>
                             <li class="performance-with-chime">
                                 <span class="play-title-clickable play-title-box bg-yellow-200 text-yellow-800"
-                                      data-play-title="Let&#39;s Be Friends!"
+                                      data-play-title="Let's Be Friends!"
                                       data-students='{"Junior A": ["Διαμαντοπούλου Α.", "Ισμαήλ Ν.", "Κατσουλάκη Κ.", "Κατσουλάκης Θ.", "Μπίλια Ε.", "Ξανθοπούλου Κ.", "Ξενιάς Σ.", "Σοφοκλέους Θ."]}'>
                                     <span>3. 🤝</span> Let's Be Friends!
                                 </span>
@@ -850,22 +851,33 @@
                     <span class="bg-white bg-opacity-30 px-3 py-1 rounded-full">#ProdigiesLanguageSchool</span>
                 </div>
             </section>
+
+            <!-- Video Teaser Section -->
+            <section class="bg-white rounded-xl shadow-2xl p-8 mb-6 lg:col-span-2 transform hover:scale-105 transition duration-300 ease-in-out">
+                <div class="video-container">
+                    <!-- Vimeo embed code with autoplay and muted parameters -->
+                    <iframe id="vimeoVideo" src="https://player.vimeo.com/video/1090637529?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&autoplay=1&muted=1" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="The World We Sing For"></iframe>
+                </div>
+                <!-- Removed the descriptive text as requested -->
+            </section>
+
         </main>
 
         <footer class="mt-12 text-center font-inter text-gray-600 text-sm">
-            <p>&copy; 2025 Κέντρο Ξένων Γλωσσών "Prodigies". Όλα τα δικαιώματα κατοχυρωμένα.</p>
+            <p>© 2025 Κέντρο Ξένων Γλωσσών "Prodigies". Όλα τα δικαιώματα κατοχυρωμένα.</p>
         </footer>
     </div>
 
     <div id="geminiModal" class="modal">
         <div class="modal-content">
-            <span class="close-button" id="closeModalBtn">&times;</span>
+            <span class="close-button" id="closeModalBtn">×</span>
             <h4 class="text-2xl font-quicksand text-[#0056B3] mb-4" id="modalTitle"></h4>
             <div class="loader" id="modalLoader"></div>
             <div class="text-lg font-inter text-gray-700" id="modalContent"></div>
         </div>
     </div>
 
+    <script src="https://player.vimeo.com/api/player.js"></script>
     <script>
         // Removed Tone.js components for background music
         // let backgroundSynth;
@@ -905,16 +917,12 @@
             const performanceWithChimeItems = document.querySelectorAll('.performance-with-chime');
             const magicStageElement = document.querySelector('#magicStage'); // Select by ID
             const playTitleClickableElements = document.querySelectorAll('.play-title-clickable'); // New selector for clickable play titles
-            // Removed musicToggleButton constant
 
             const modal = document.getElementById('geminiModal');
             const closeModalBtn = document.getElementById('closeModalBtn');
             const modalTitle = document.getElementById('modalTitle');
             const modalContent = document.getElementById('modalContent');
             const modalLoader = document.getElementById('modalLoader');
-
-            // Removed event listener for music toggle button
-            // if (musicToggleButton) { musicToggleButton.addEventListener('click', toggleBackgroundMusic); }
 
             // Function to call Gemini API and update modal (for "Αξίες που Εμπνέουν" buttons)
             async function fetchGeminiContent(promptTitle, promptValue) {
@@ -1070,6 +1078,30 @@
                     modal.style.display = 'none';
                 }
             });
+
+            // Vimeo video autoplay on scroll
+            const vimeoIframe = document.getElementById('vimeoVideo');
+            if (vimeoIframe) {
+                const player = new Vimeo.Player(vimeoIframe);
+
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            player.play().catch(error => {
+                                console.log("Vimeo video autoplay prevented:", error);
+                                // This error often occurs if the browser blocks autoplay without user interaction
+                                // or if the video is not muted.
+                            });
+                        } else {
+                            player.pause().catch(error => {
+                                console.log("Vimeo video pause error:", error);
+                            });
+                        }
+                    });
+                }, { threshold: 0.5 }); // Trigger when 50% of the video is visible
+
+                observer.observe(vimeoIframe);
+            }
         });
     </script>
 </body>
